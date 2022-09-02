@@ -13,7 +13,11 @@
   "engines": {
     "node": "^14.18.0 || >=16.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "emotion-reset": "^3.0.1"
+  },
   "devDependencies": {
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
