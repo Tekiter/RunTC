@@ -1,6 +1,7 @@
 import { app, BrowserWindow, shell } from "electron";
 import { release } from "os";
 import { join } from "path";
+
 import { installBridge } from "./bridge";
 
 // Disable GPU Acceleration for Windows 7

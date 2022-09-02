@@ -1,8 +1,9 @@
+import react from '@vitejs/plugin-react'
 import { rmSync } from 'fs'
 import path from 'path'
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
 import electron, { onstart } from 'vite-plugin-electron'
+
 import pkg from './package.json'
 
 rmSync(path.join(__dirname, 'dist'), { recursive: true, force: true }) // v14.14.0

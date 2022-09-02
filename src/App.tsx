@@ -1,7 +1,7 @@
-import { useState } from "react";
-import styled from "@emotion/styled";
 import { css, Global } from "@emotion/react";
+import styled from "@emotion/styled";
 import emotionReset from "emotion-reset";
+import { useState } from "react";
 
 const App: React.FC = () => {
   const [count, setCount] = useState(0);

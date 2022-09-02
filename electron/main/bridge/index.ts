@@ -1,1 +1,3 @@
-export function installBridge() {}
+export function installBridge() {
+  //
+}
