@@ -15,9 +15,18 @@
     "node": "^14.18.0 || >=16.0.0"
   },
   "dependencies": {
+    "@blueprintjs/core": "^4.9.3",
+    "@blueprintjs/select": "^4.6.3",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "emotion-reset": "^3.0.1"
+    "@uiw/react-codemirror": "^4.12.1",
+    "electron-store": "^8.1.0",
+    "emotion-reset": "^3.0.1",
+    "local-echo": "wavesoft/local-echo",
+    "react-diff-viewer": "^3.1.1",
+    "recoil": "^0.7.5",
+    "xterm": "^4.19.0",
+    "xterm-addon-fit": "^0.5.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",

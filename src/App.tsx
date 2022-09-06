@@ -1,26 +1,22 @@
+import "@blueprintjs/core/lib/css/blueprint.css";
+
 import { css, Global } from "@emotion/react";
-import styled from "@emotion/styled";
 import emotionReset from "emotion-reset";
-import { useState } from "react";
+import { RecoilRoot } from "recoil";
+
+import CodeRunner from "./CodeRunner";
 
 const App: React.FC = () => {
-  const [count, setCount] = useState(0);
-
   return (
-    <StyeldApp>
+    <RecoilRoot>
       <Global
         styles={css`
           ${emotionReset}
         `}
       />
-      <h1>Hello world!</h1>
-      <button onClick={() => setCount((count) => count + 1)}>{count}</button>
-    </StyeldApp>
+      <CodeRunner />
+    </RecoilRoot>
   );
 };
-
-const StyeldApp = styled.div`
-  background-color: gray;
-`;
 
 export default App;
