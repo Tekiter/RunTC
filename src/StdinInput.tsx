@@ -34,6 +34,7 @@ const StdinInput: FC<StdinInputProps> = ({ inputId }) => {
   const updateData = (data: StdinInputData) => {
     setStdinValue((prev) => ({
       id: prev.id,
+      name: prev.name,
       data: data,
     }));
   };

@@ -1,20 +1,26 @@
 import { Button } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import { FC } from "react";
-import { useRecoilCallback, useRecoilValue } from "recoil";
+import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
 
 import useSerial from "./hook/useSerial";
-import { stdinInput, stdinInputIds } from "./state/stdinInput";
+import { itemCounterAtom, stdinInput, stdinInputIds } from "./state/stdinInput";
 import StdinInput from "./StdinInput";
 
 const StdinList: FC = () => {
   const inputIds = useRecoilValue(stdinInputIds);
+  const [itemCounter, setItemCounter] = useRecoilState(itemCounterAtom);
 
   const { getSerial } = useSerial();
 
   const handleAdd = useRecoilCallback(({ set }) => () => {
     const id = getSerial();
-    set(stdinInput(id), { id, data: { type: "plainText", text: "" } });
+    set(stdinInput(id), {
+      id,
+      name: `테스트 케이스 ${itemCounter}`,
+      data: { type: "plainText", text: "" },
+    });
+    setItemCounter((val) => val + 1);
   });
 
   return (

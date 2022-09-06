@@ -2,18 +2,21 @@ import { atom, atomFamily, DefaultValue, selectorFamily } from "recoil";
 
 export interface StdinInput {
   id: string;
+  name: string;
   data: StdinInputData;
 }
 
 export type StdinInputData =
   | { type: "plainText"; text: string }
   | { type: "file"; path: string | null };
+
 export type StdinInputType = StdinInputData["type"];
 
 export const stdinInputFamily = atomFamily<StdinInput, string>({
   key: "inputValueAtom",
   default: (id) => ({
     id,
+    name: "",
     data: {
       type: "plainText",
       text: "",
@@ -24,6 +27,11 @@ export const stdinInputFamily = atomFamily<StdinInput, string>({
 export const stdinInputIds = atom<string[]>({
   key: "inputValueIds",
   default: [],
+});
+
+export const itemCounterAtom = atom<number>({
+  key: "inputItemCounter",
+  default: 1,
 });
 
 export const stdinInput = selectorFamily<StdinInput, string>({
