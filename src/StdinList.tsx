@@ -4,7 +4,7 @@ import { FC } from "react";
 import { useRecoilCallback, useRecoilValue } from "recoil";
 
 import useSerial from "./hook/useSerial";
-import { stdinInput, stdinInputIds } from "./state/inputValue";
+import { stdinInput, stdinInputIds } from "./state/stdinInput";
 import StdinInput from "./StdinInput";
 
 const StdinList: FC = () => {
@@ -14,7 +14,7 @@ const StdinList: FC = () => {
 
   const handleAdd = useRecoilCallback(({ set }) => () => {
     const id = getSerial();
-    set(stdinInput(id), { id, data: { type: "plainText", text: "" + id } });
+    set(stdinInput(id), { id, data: { type: "plainText", text: "" } });
   });
 
   return (

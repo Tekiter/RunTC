@@ -1,10 +1,10 @@
-import { FileInput, HTMLSelect } from "@blueprintjs/core";
+import { Button, FileInput, HTMLSelect } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import ReactCodeMirror from "@uiw/react-codemirror";
 import { FC, FormEventHandler, useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 
-import { stdinInput, StdinInputData, StdinInputType } from "./state/inputValue";
+import { stdinInput, StdinInputData, StdinInputType } from "./state/stdinInput";
 
 const modes: Array<{ type: StdinInputType; text: string }> = [
   { type: "plainText", text: "Plain Text" },
@@ -65,6 +65,11 @@ const StdinInput: FC<StdinInputProps> = ({ inputId }) => {
     });
   };
 
+  const reset = useResetRecoilState(stdinInput(inputId));
+  const handleRemove = () => {
+    reset();
+  };
+
   useEffect(() => {
     setDefaultData((prev) => ({
       ...prev,
@@ -84,6 +89,7 @@ const StdinInput: FC<StdinInputProps> = ({ inputId }) => {
           </option>
         ))}
       </HTMLSelect>
+      <Button onClick={handleRemove}>Remove</Button>
       {stdinValue.data.type === "plainText" && (
         <ReactCodeMirror
           value={stdinValue.data.text}
