@@ -1,7 +1,6 @@
-import { EditableText } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import { FC } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 import { stdinInput } from "@/state/stdinInput";
 
@@ -17,14 +16,10 @@ const ProgramInputListItem: FC<ProgramInputListItemProps> = ({
   onClick,
 }) => {
   const { name, data } = useRecoilValue(stdinInput(inputId));
-  const setInputValue = useSetRecoilState(stdinInput(inputId));
 
   return (
     <StyledProgramInputListItem selected={selected} onClick={onClick}>
-      <EditableText
-        value={name}
-        onChange={(val) => setInputValue((prev) => ({ ...prev, name: val }))}
-      ></EditableText>
+      <h2>{name}</h2>
 
       <>{JSON.stringify(data)}</>
     </StyledProgramInputListItem>

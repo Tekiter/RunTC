@@ -31,8 +31,12 @@ const LeftPanelSlot = styled.div`
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+
+  background-color: var(--backgroundSurfaceColor);
 `;
 
 const ContentSlot = styled.div`
   flex-grow: 1;
+
+  background-color: var(--backgroundColor);
 `;

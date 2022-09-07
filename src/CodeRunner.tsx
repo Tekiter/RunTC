@@ -1,14 +1,18 @@
 import { Button } from "@blueprintjs/core";
 import { FC } from "react";
+import { useRecoilValue } from "recoil";
 
 import ChooseExecuteTarget from "./ChooseExecuteTarget";
 import AppLayout from "./components/AppLayout";
-import ProgramInputList from "./components/programInputList/ProgramInputList";
+import ProgramInputDetail from "./components/programInput/ProgramInputDetail";
+import ProgramInputList from "./components/programInput/ProgramInputList";
 import PanelFrame from "./components/sidePanel/PanelFrame";
+import { selectedInputKeyAtom } from "./state/selectedProgramInput";
 import StaticOutput from "./StaticOutput";
-import StdinList from "./StdinList";
 
 const CodeRunner: FC = () => {
+  const selectedInputKey = useRecoilValue(selectedInputKeyAtom);
+
   return (
     <AppLayout
       leftPanel={
@@ -26,7 +30,10 @@ const CodeRunner: FC = () => {
       }
       content={
         <>
-          <StdinList />
+          {selectedInputKey ? (
+            <ProgramInputDetail inputId={selectedInputKey} />
+          ) : null}
+
           <StaticOutput text={"asdf"} />
         </>
       }
