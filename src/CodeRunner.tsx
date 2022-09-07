@@ -4,14 +4,14 @@ import { useRecoilValue } from "recoil";
 
 import ChooseExecuteTarget from "./ChooseExecuteTarget";
 import AppLayout from "./components/AppLayout";
-import ProgramInputDetail from "./components/programInput/ProgramInputDetail";
-import ProgramInputList from "./components/programInput/ProgramInputList";
+import ProgramInputDetail from "./components/selectTestcase/ProgramInputDetail";
+import SelectTestcaseMenu from "./components/selectTestcase/SelectTestcaseMenu";
 import PanelFrame from "./components/sidePanel/PanelFrame";
-import { selectedInputKeyAtom } from "./state/selectedProgramInput";
+import { selectedTestcaseKeyAtom } from "./state/selectedTestcase";
 import StaticOutput from "./StaticOutput";
 
 const CodeRunner: FC = () => {
-  const selectedInputKey = useRecoilValue(selectedInputKeyAtom);
+  const selectedInputKey = useRecoilValue(selectedTestcaseKeyAtom);
 
   return (
     <AppLayout
@@ -24,7 +24,7 @@ const CodeRunner: FC = () => {
             <Button>Run</Button>
           </PanelFrame>
           <PanelFrame title="테스트 케이스">
-            <ProgramInputList />
+            <SelectTestcaseMenu />
           </PanelFrame>
         </>
       }

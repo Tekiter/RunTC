@@ -4,9 +4,13 @@ import ReactCodeMirror from "@uiw/react-codemirror";
 import { FC, FormEventHandler, useEffect, useState } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
-import { stdinInput, StdinInputData, StdinInputType } from "./state/stdinInput";
+import {
+  testcaseFamily,
+  TestcaseInput,
+  TestcaseInputType,
+} from "./state/testcase";
 
-const modes: Array<{ type: StdinInputType; text: string }> = [
+const modes: Array<{ type: TestcaseInputType; text: string }> = [
   { type: "plainText", text: "Plain Text" },
   { type: "file", text: "File" },
 ];
@@ -16,10 +20,10 @@ interface StdinInputProps {
 }
 
 const StdinInput: FC<StdinInputProps> = ({ inputId }) => {
-  const [stdinValue, setStdinValue] = useRecoilState(stdinInput(inputId));
+  const [stdinValue, setStdinValue] = useRecoilState(testcaseFamily(inputId));
 
   const [defaultData, setDefaultData] = useState<
-    Record<StdinInputType, StdinInputData>
+    Record<TestcaseInputType, TestcaseInput>
   >({
     plainText: {
       type: "plainText",
@@ -31,15 +35,15 @@ const StdinInput: FC<StdinInputProps> = ({ inputId }) => {
     },
   });
 
-  const updateData = (data: StdinInputData) => {
+  const updateData = (data: TestcaseInput) => {
     setStdinValue((prev) => ({
       id: prev.id,
       name: prev.name,
-      data: data,
+      input: data,
     }));
   };
 
-  const handleTypeChange = (type: StdinInputType) => {
+  const handleTypeChange = (type: TestcaseInputType) => {
     updateData(defaultData[type]);
   };
 
@@ -66,7 +70,7 @@ const StdinInput: FC<StdinInputProps> = ({ inputId }) => {
     });
   };
 
-  const reset = useResetRecoilState(stdinInput(inputId));
+  const reset = useResetRecoilState(testcaseFamily(inputId));
   const handleRemove = () => {
     reset();
   };
@@ -74,14 +78,14 @@ const StdinInput: FC<StdinInputProps> = ({ inputId }) => {
   useEffect(() => {
     setDefaultData((prev) => ({
       ...prev,
-      [stdinValue.data.type]: stdinValue.data,
+      [stdinValue.input.type]: stdinValue.input,
     }));
   }, [stdinValue]);
 
   return (
     <StyledInputSelector>
       <HTMLSelect
-        value={stdinValue.data.type}
+        value={stdinValue.input.type}
         onChange={(e) => handleTypeChange(modes[e.target.selectedIndex].type)}
       >
         {modes.map((mode) => (
@@ -91,14 +95,14 @@ const StdinInput: FC<StdinInputProps> = ({ inputId }) => {
         ))}
       </HTMLSelect>
       <Button onClick={handleRemove}>Remove</Button>
-      {stdinValue.data.type === "plainText" && (
+      {stdinValue.input.type === "plainText" && (
         <ReactCodeMirror
-          value={stdinValue.data.text}
+          value={stdinValue.input.text}
           height="200px"
           onChange={(value) => handlePlainTextChange(value)}
         />
       )}
-      {stdinValue.data.type === "file" && (
+      {stdinValue.input.type === "file" && (
         <FileInput onInputChange={handleFileChange} />
       )}
     </StyledInputSelector>

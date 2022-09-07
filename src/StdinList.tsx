@@ -4,21 +4,27 @@ import { FC } from "react";
 import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
 
 import useSerial from "./hook/useSerial";
-import { itemCounterAtom, stdinInput, stdinInputIds } from "./state/stdinInput";
+import {
+  testcaseFamily,
+  testcaseIdsAtom,
+  testcaseSerialCounterAtom,
+} from "./state/testcase";
 import StdinInput from "./StdinInput";
 
 const StdinList: FC = () => {
-  const inputIds = useRecoilValue(stdinInputIds);
-  const [itemCounter, setItemCounter] = useRecoilState(itemCounterAtom);
+  const inputIds = useRecoilValue(testcaseIdsAtom);
+  const [itemCounter, setItemCounter] = useRecoilState(
+    testcaseSerialCounterAtom
+  );
 
   const { getSerial } = useSerial();
 
   const handleAdd = useRecoilCallback(({ set }) => () => {
     const id = getSerial();
-    set(stdinInput(id), {
+    set(testcaseFamily(id), {
       id,
       name: `테스트 케이스 ${itemCounter}`,
-      data: { type: "plainText", text: "" },
+      input: { type: "plainText", text: "" },
     });
     setItemCounter((val) => val + 1);
   });

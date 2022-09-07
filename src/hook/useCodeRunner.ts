@@ -2,7 +2,7 @@ import { spawn } from "child_process";
 import { useRecoilCallback, useRecoilValue } from "recoil";
 
 import { executeTargetAtom } from "@/state/executeTarget";
-import { stdinInput, stdinInputIds } from "@/state/stdinInput";
+import { testcaseFamily, testcaseIdsAtom } from "@/state/testcase";
 
 const useCodeRunner = () => {
   const executablePath = useRecoilValue(executeTargetAtom);
@@ -13,11 +13,11 @@ const useCodeRunner = () => {
         if (!executablePath) {
           return;
         }
-        const stdinValue = snapshot.getLoadable(stdinInput(id)).getValue();
+        const stdinValue = snapshot.getLoadable(testcaseFamily(id)).getValue();
 
         let stdin = "";
-        if (stdinValue.data.type === "plainText") {
-          stdin = stdinValue.data.text;
+        if (stdinValue.input.type === "plainText") {
+          stdin = stdinValue.input.text;
         }
 
         await executeFile({
@@ -26,7 +26,7 @@ const useCodeRunner = () => {
           timeout: 2000,
         });
       },
-    [stdinInputIds]
+    [testcaseIdsAtom]
   );
 
   return {
