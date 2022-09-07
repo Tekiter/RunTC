@@ -17,13 +17,11 @@ const SelectTestcaseItem: FC<SelectTestcaseItemProps> = ({
   selected = false,
   onClick,
 }) => {
-  const { name, input: data } = useRecoilValue(testcaseFamily(inputId));
+  const { name } = useRecoilValue(testcaseFamily(inputId));
 
   return (
     <StyledItem selected={selected} onClick={onClick}>
       <h2>{name}</h2>
-
-      <>{JSON.stringify(data)}</>
     </StyledItem>
   );
 };
@@ -34,6 +32,7 @@ const StyledItem = styled.div<{ selected: boolean }>`
   cursor: pointer;
   border-radius: 6px;
   margin: 0 10px;
+  padding: 10px 15px;
 
   ${(props) =>
     props.selected &&
