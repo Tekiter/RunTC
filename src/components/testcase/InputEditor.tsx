@@ -1,17 +1,13 @@
-import { Button, FileInput, HTMLSelect } from "@blueprintjs/core";
+import { FileInput, HTMLSelect } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import ReactCodeMirror from "@uiw/react-codemirror";
 import { FC, FormEventHandler, useEffect, useState } from "react";
-import { useRecoilState, useResetRecoilState } from "recoil";
 
-import {
-  testcaseFamily,
-  TestcaseInput,
-  TestcaseInputType,
-} from "@/state/testcase";
+import { TestcaseInput, TestcaseInputType } from "@/state/testcase";
 
-interface ProgramInputDetailProps {
-  inputId: string;
+interface InputEditorProps {
+  value: TestcaseInput;
+  onChange(newVal: TestcaseInput): void;
 }
 
 const modes: Array<{ type: TestcaseInputType; text: string }> = [
@@ -19,10 +15,8 @@ const modes: Array<{ type: TestcaseInputType; text: string }> = [
   { type: "file", text: "File" },
 ];
 
-const ProgramInputDetail: FC<ProgramInputDetailProps> = ({ inputId }) => {
-  const [testcase, setTestcase] = useRecoilState(testcaseFamily(inputId));
-
-  const [defaultData, setDefaultData] = useState<
+const InputEditor: FC<InputEditorProps> = ({ value, onChange }) => {
+  const [inputToChange, setInputToChange] = useState<
     Record<TestcaseInputType, TestcaseInput>
   >({
     plainText: {
@@ -36,15 +30,11 @@ const ProgramInputDetail: FC<ProgramInputDetailProps> = ({ inputId }) => {
   });
 
   const updateData = (data: TestcaseInput) => {
-    setTestcase((prev) => ({
-      id: prev.id,
-      name: prev.name,
-      input: data,
-    }));
+    onChange(data);
   };
 
   const handleTypeChange = (type: TestcaseInputType) => {
-    updateData(defaultData[type]);
+    updateData(inputToChange[type]);
   };
 
   const handlePlainTextChange = (value: string) => {
@@ -70,22 +60,17 @@ const ProgramInputDetail: FC<ProgramInputDetailProps> = ({ inputId }) => {
     });
   };
 
-  const reset = useResetRecoilState(testcaseFamily(inputId));
-  const handleRemove = () => {
-    reset();
-  };
-
   useEffect(() => {
-    setDefaultData((prev) => ({
+    setInputToChange((prev) => ({
       ...prev,
-      [testcase.input.type]: testcase.input,
+      [value.type]: value,
     }));
-  }, [testcase]);
+  }, [value]);
 
   return (
     <StyledProgramInput>
       <HTMLSelect
-        value={testcase.input.type}
+        value={value.type}
         onChange={(e) => handleTypeChange(modes[e.target.selectedIndex].type)}
       >
         {modes.map((mode) => (
@@ -94,21 +79,18 @@ const ProgramInputDetail: FC<ProgramInputDetailProps> = ({ inputId }) => {
           </option>
         ))}
       </HTMLSelect>
-      <Button onClick={handleRemove}>Remove</Button>
-      {testcase.input.type === "plainText" && (
+      {value.type === "plainText" && (
         <ReactCodeMirror
-          value={testcase.input.text}
+          value={value.text}
           height="200px"
           onChange={(value) => handlePlainTextChange(value)}
         />
       )}
-      {testcase.input.type === "file" && (
-        <FileInput onInputChange={handleFileChange} />
-      )}
+      {value.type === "file" && <FileInput onInputChange={handleFileChange} />}
     </StyledProgramInput>
   );
 };
 
-export default ProgramInputDetail;
+export default InputEditor;
 
 const StyledProgramInput = styled.div``;

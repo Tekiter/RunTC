@@ -1,8 +1,10 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FC } from "react";
 import { useRecoilValue } from "recoil";
 
 import { testcaseFamily } from "@/state/testcase";
+import { color } from "@/styles/color";
 
 interface SelectTestcaseItemProps {
   inputId: string;
@@ -29,5 +31,17 @@ const SelectTestcaseItem: FC<SelectTestcaseItemProps> = ({
 export default SelectTestcaseItem;
 
 const StyledItem = styled.div<{ selected: boolean }>`
-  background-color: ${(props) => (props.selected ? "gray" : "transparent")};
+  cursor: pointer;
+  border-radius: 6px;
+  margin: 0 10px;
+
+  ${(props) =>
+    props.selected &&
+    css`
+      background-color: ${color.values.selectedBackground};
+    `};
+
+  &:hover {
+    background-color: ${color.values.hoverBackground};
+  }
 `;

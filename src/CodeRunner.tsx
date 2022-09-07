@@ -4,14 +4,13 @@ import { useRecoilValue } from "recoil";
 
 import ChooseExecuteTarget from "./ChooseExecuteTarget";
 import AppLayout from "./components/AppLayout";
-import ProgramInputDetail from "./components/selectTestcase/ProgramInputDetail";
 import SelectTestcaseMenu from "./components/selectTestcase/SelectTestcaseMenu";
 import PanelFrame from "./components/sidePanel/PanelFrame";
-import { selectedTestcaseKeyAtom } from "./state/selectedTestcase";
-import StaticOutput from "./StaticOutput";
+import TestcasePanel from "./components/testcase/TestcasePanel";
+import { selectedTestcaseIdAtom } from "./state/selectedTestcase";
 
 const CodeRunner: FC = () => {
-  const selectedInputKey = useRecoilValue(selectedTestcaseKeyAtom);
+  const selectedTestcaseId = useRecoilValue(selectedTestcaseIdAtom);
 
   return (
     <AppLayout
@@ -30,11 +29,9 @@ const CodeRunner: FC = () => {
       }
       content={
         <>
-          {selectedInputKey ? (
-            <ProgramInputDetail inputId={selectedInputKey} />
+          {selectedTestcaseId ? (
+            <TestcasePanel testcaseId={selectedTestcaseId} />
           ) : null}
-
-          <StaticOutput text={"asdf"} />
         </>
       }
     />

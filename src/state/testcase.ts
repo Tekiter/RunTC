@@ -1,10 +1,12 @@
 import { atom, atomFamily, DefaultValue, selectorFamily } from "recoil";
 
 export interface Testcase {
-  id: string;
+  id: TestcaseID;
   name: string;
   input: TestcaseInput;
 }
+
+export type TestcaseID = string;
 
 export type TestcaseInput =
   | { type: "plainText"; text: string }

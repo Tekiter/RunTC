@@ -1,9 +1,10 @@
 import { Button } from "@blueprintjs/core";
+import styled from "@emotion/styled";
 import { FC } from "react";
 import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
 
 import useSerial from "@/hook/useSerial";
-import { selectedTestcaseKeyAtom } from "@/state/selectedTestcase";
+import { selectedTestcaseIdAtom } from "@/state/selectedTestcase";
 import {
   testcaseFamily,
   testcaseIdsAtom,
@@ -19,7 +20,7 @@ const SelectTestcaseMenu: FC = () => {
     testcaseSerialCounterAtom
   );
   const [selectedTestcaseKey, setSelectedTestcaseKey] = useRecoilState(
-    selectedTestcaseKeyAtom
+    selectedTestcaseIdAtom
   );
 
   const addTestcase = useRecoilCallback(({ set }) => () => {
@@ -37,7 +38,7 @@ const SelectTestcaseMenu: FC = () => {
   };
 
   return (
-    <>
+    <StyledMenu>
       <Button onClick={addTestcase}>Add</Button>
       {testcaseIds.map((key) => (
         <SelectTestcaseItem
@@ -47,8 +48,10 @@ const SelectTestcaseMenu: FC = () => {
           onClick={() => changeTestcase(key)}
         />
       ))}
-    </>
+    </StyledMenu>
   );
 };
 
 export default SelectTestcaseMenu;
+
+const StyledMenu = styled.div``;
