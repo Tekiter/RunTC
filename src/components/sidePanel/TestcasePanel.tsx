@@ -4,8 +4,8 @@ import { FC } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import useTestcaseRunner from "@/commands/useTestcaseRunner";
-import { executedResultFamily } from "@/state/executedResult";
-import { testcaseFamily, TestcaseID } from "@/state/testcase";
+import { executedResultFamily } from "@/states/executedResult";
+import { testcaseFamily, TestcaseID } from "@/states/testcase";
 
 import InputEditor from "../testcase/InputEditor";
 

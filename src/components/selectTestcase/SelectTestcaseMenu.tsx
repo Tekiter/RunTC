@@ -4,12 +4,12 @@ import { FC } from "react";
 import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
 
 import useSerial from "@/hook/useSerial";
-import { selectedTestcaseIdAtom } from "@/state/selectedTestcase";
+import { selectedTestcaseIdAtom } from "@/states/selectedTestcase";
 import {
   testcaseFamily,
   testcaseIdsAtom,
   testcaseSerialCounterAtom,
-} from "@/state/testcase";
+} from "@/states/testcase";
 
 import SelectTestcaseItem from "./SelectTestcaseItem";
 

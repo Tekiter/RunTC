@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import ReactCodeMirror from "@uiw/react-codemirror";
 import { FC, FormEventHandler, useEffect, useState } from "react";
 
-import { TestcaseInput, TestcaseInputType } from "@/state/testcase";
+import { TestcaseInput, TestcaseInputType } from "@/states/testcase";
 
 interface InputEditorProps {
   value: TestcaseInput;

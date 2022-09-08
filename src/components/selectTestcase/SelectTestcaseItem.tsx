@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { FC } from "react";
 import { useRecoilValue } from "recoil";
 
-import { testcaseFamily } from "@/state/testcase";
+import { testcaseFamily } from "@/states/testcase";
 import { color } from "@/styles/color";
 
 interface SelectTestcaseItemProps {

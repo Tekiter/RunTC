@@ -4,11 +4,11 @@ import { useRecoilValue } from "recoil";
 
 import useTestcaseRunner from "./commands/useTestcaseRunner";
 import AppLayout from "./components/AppLayout";
-import ChooseExecuteTarget from "./components/executeTarget/ChooseExecuteTarget";
 import SelectTestcaseMenu from "./components/selectTestcase/SelectTestcaseMenu";
+import ChooseExecuteTarget from "./components/sidePanel/ChooseExecuteTarget";
 import PanelFrame from "./components/sidePanel/PanelFrame";
 import TestcasePanel from "./components/sidePanel/TestcasePanel";
-import { selectedTestcaseIdAtom } from "./state/selectedTestcase";
+import { selectedTestcaseIdAtom } from "./states/selectedTestcase";
 
 const CodeRunner: FC = () => {
   const selectedTestcaseId = useRecoilValue(selectedTestcaseIdAtom);

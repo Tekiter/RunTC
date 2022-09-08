@@ -3,9 +3,9 @@ import { useContext } from "react";
 import { useRecoilCallback, useRecoilValue } from "recoil";
 
 import { RunnerContext } from "@/lib/testcaseRunner/runnerContext";
-import { executedResultFamily } from "@/state/executedResult";
-import { executeTargetAtom } from "@/state/executeTarget";
-import { testcaseFamily, testcaseIdsAtom } from "@/state/testcase";
+import { executedResultFamily } from "@/states/executedResult";
+import { executeTargetAtom } from "@/states/executeTarget";
+import { testcaseFamily, testcaseIdsAtom } from "@/states/testcase";
 
 const useTestcaseRunner = () => {
   const runner = useContext(RunnerContext);

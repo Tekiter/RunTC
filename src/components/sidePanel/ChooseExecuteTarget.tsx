@@ -5,7 +5,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   executeTargetAtom,
   executeTargetFilenameSelector,
-} from "../../state/executeTarget";
+} from "../../states/executeTarget";
 
 const ChooseExecuteTarget = () => {
   const setExecuteTarget = useSetRecoilState(executeTargetAtom);
