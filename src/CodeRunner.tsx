@@ -2,8 +2,9 @@ import { Button } from "@blueprintjs/core";
 import { FC } from "react";
 import { useRecoilValue } from "recoil";
 
-import ChooseExecuteTarget from "./ChooseExecuteTarget";
+import useTestcaseRunner from "./commands/useTestcaseRunner";
 import AppLayout from "./components/AppLayout";
+import ChooseExecuteTarget from "./components/executeTarget/ChooseExecuteTarget";
 import SelectTestcaseMenu from "./components/selectTestcase/SelectTestcaseMenu";
 import PanelFrame from "./components/sidePanel/PanelFrame";
 import TestcasePanel from "./components/testcase/TestcasePanel";
@@ -11,6 +12,7 @@ import { selectedTestcaseIdAtom } from "./state/selectedTestcase";
 
 const CodeRunner: FC = () => {
   const selectedTestcaseId = useRecoilValue(selectedTestcaseIdAtom);
+  const runner = useTestcaseRunner();
 
   return (
     <AppLayout
@@ -20,7 +22,7 @@ const CodeRunner: FC = () => {
             <ChooseExecuteTarget />
           </PanelFrame>
           <PanelFrame title="작업">
-            <Button>Run</Button>
+            <Button onClick={runner.runAll}>Run</Button>
           </PanelFrame>
           <PanelFrame title="테스트 케이스">
             <SelectTestcaseMenu />

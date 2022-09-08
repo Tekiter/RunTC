@@ -2,7 +2,7 @@ import { FileInput, H2 } from "@blueprintjs/core";
 import { FormEventHandler } from "react";
 import { useRecoilState } from "recoil";
 
-import { executeTargetAtom } from "./state/executeTarget";
+import { executeTargetAtom } from "../../state/executeTarget";
 
 const ChooseExecuteTarget = () => {
   const [executeTarget, setExecuteTarget] = useRecoilState(executeTargetAtom);

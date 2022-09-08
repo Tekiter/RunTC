@@ -1,9 +1,10 @@
 import { EditableText, H1 } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import { FC } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import useTestcaseRunner from "@/commands/useTestcaseRunner";
+import { executedResultFamily } from "@/state/executedResult";
 import { testcaseFamily, TestcaseID } from "@/state/testcase";
 
 import InputEditor from "./InputEditor";
@@ -13,8 +14,10 @@ interface TestcasePanelProps {
 }
 
 const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
-  const [testcase, setTestcase] = useRecoilState(testcaseFamily(testcaseId));
   const runner = useTestcaseRunner();
+  const [testcase, setTestcase] = useRecoilState(testcaseFamily(testcaseId));
+
+  const result = useRecoilValue(executedResultFamily(testcaseId));
 
   return (
     <StyledTestcasePanel>
@@ -25,6 +28,7 @@ const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
         />
       </H1>
       <button onClick={() => runner.run(testcaseId)}>Run</button>
+      <p>{JSON.stringify(result)}</p>
       <InputEditor
         value={testcase.input}
         onChange={(input) => setTestcase({ ...testcase, input })}
