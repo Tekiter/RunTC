@@ -1,11 +1,15 @@
-import { FileInput, H2 } from "@blueprintjs/core";
+import { FileInput } from "@blueprintjs/core";
 import { FormEventHandler } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import { executeTargetAtom } from "../../state/executeTarget";
+import {
+  executeTargetAtom,
+  executeTargetFilenameSelector,
+} from "../../state/executeTarget";
 
 const ChooseExecuteTarget = () => {
-  const [executeTarget, setExecuteTarget] = useRecoilState(executeTargetAtom);
+  const setExecuteTarget = useSetRecoilState(executeTargetAtom);
+  const filename = useRecoilValue(executeTargetFilenameSelector);
 
   const handleFileInput: FormEventHandler<HTMLInputElement> = (e) => {
     if (!(e.target instanceof HTMLInputElement)) {
@@ -22,9 +26,10 @@ const ChooseExecuteTarget = () => {
 
   return (
     <>
-      <H2>asdf</H2>
-      <FileInput onInputChange={handleFileInput} />
-      <p>Target: {executeTarget}</p>
+      <FileInput
+        onInputChange={handleFileInput}
+        text={filename ?? "파일 선택..."}
+      ></FileInput>
     </>
   );
 };

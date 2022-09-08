@@ -7,7 +7,7 @@ import useTestcaseRunner from "@/commands/useTestcaseRunner";
 import { executedResultFamily } from "@/state/executedResult";
 import { testcaseFamily, TestcaseID } from "@/state/testcase";
 
-import InputEditor from "./InputEditor";
+import InputEditor from "../testcase/InputEditor";
 
 interface TestcasePanelProps {
   testcaseId: TestcaseID;
