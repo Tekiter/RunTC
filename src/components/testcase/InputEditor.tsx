@@ -25,7 +25,6 @@ const InputEditor: FC<InputEditorProps> = ({ value, onChange }) => {
     <StyledInputEditor>
       <ReactCodeMirror
         value={value.text}
-        height="100%"
         onChange={(value) => handlePlainTextChange(value)}
       />
     </StyledInputEditor>
@@ -34,4 +33,18 @@ const InputEditor: FC<InputEditorProps> = ({ value, onChange }) => {
 
 export default InputEditor;
 
-const StyledInputEditor = styled.div``;
+const StyledInputEditor = styled.div`
+  height: 100%;
+  width: 100%;
+
+  & > * {
+    height: 100%;
+  }
+
+  & .cm-editor {
+    height: 100%;
+  }
+  & .cm-scroller {
+    overflow: auto;
+  }
+`;
