@@ -8,9 +8,7 @@ export interface Testcase {
 
 export type TestcaseID = string;
 
-export type TestcaseInput =
-  | { type: "plainText"; text: string }
-  | { type: "file"; path: string | null };
+export type TestcaseInput = { type: "plainText"; text: string };
 
 export type TestcaseInputType = TestcaseInput["type"];
 

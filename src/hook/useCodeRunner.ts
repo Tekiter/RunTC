@@ -1,11 +1,11 @@
 import { spawn } from "child_process";
 import { useRecoilCallback, useRecoilValue } from "recoil";
 
-import { executeTargetAtom } from "@/states/executeTarget";
+import { executableTargetAtom } from "@/states/executableTarget";
 import { testcaseFamily, testcaseIdsAtom } from "@/states/testcase";
 
 const useCodeRunner = () => {
-  const executablePath = useRecoilValue(executeTargetAtom);
+  const executablePath = useRecoilValue(executableTargetAtom);
 
   const execute = useRecoilCallback(
     ({ snapshot }) =>

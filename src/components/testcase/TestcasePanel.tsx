@@ -1,13 +1,14 @@
 import { EditableText, H1 } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import { FC } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 
+import useTestcaseCommand from "@/commands/useTestcaseCommand";
 import useTestcaseRunner from "@/commands/useTestcaseRunner";
 import { executedResultFamily } from "@/states/executedResult";
 import { testcaseFamily, TestcaseID } from "@/states/testcase";
 
-import InputEditor from "../testcase/InputEditor";
+import InputEditor from "./InputEditor";
 
 interface TestcasePanelProps {
   testcaseId: TestcaseID;
@@ -15,7 +16,9 @@ interface TestcasePanelProps {
 
 const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
   const runner = useTestcaseRunner();
-  const [testcase, setTestcase] = useRecoilState(testcaseFamily(testcaseId));
+  const testcaseCommand = useTestcaseCommand();
+
+  const testcase = useRecoilValue(testcaseFamily(testcaseId));
 
   const result = useRecoilValue(executedResultFamily(testcaseId));
 
@@ -24,14 +27,15 @@ const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
       <H1>
         <EditableText
           value={testcase.name}
-          onChange={(name) => setTestcase({ ...testcase, name })}
+          onChange={(name) => testcaseCommand.changeValue(testcaseId, { name })}
         />
       </H1>
       <button onClick={() => runner.run(testcaseId)}>Run</button>
+      <button onClick={() => testcaseCommand.remove(testcaseId)}>삭제</button>
       <p>{JSON.stringify(result)}</p>
       <InputEditor
         value={testcase.input}
-        onChange={(input) => setTestcase({ ...testcase, input })}
+        onChange={(input) => testcaseCommand.changeValue(testcaseId, { input })}
       />
     </StyledTestcasePanel>
   );

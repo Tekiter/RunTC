@@ -7,7 +7,7 @@ import AppLayout from "./components/AppLayout";
 import SelectTestcaseMenu from "./components/selectTestcase/SelectTestcaseMenu";
 import ChooseExecuteTarget from "./components/sidePanel/ChooseExecuteTarget";
 import PanelFrame from "./components/sidePanel/PanelFrame";
-import TestcasePanel from "./components/sidePanel/TestcasePanel";
+import TestcasePanel from "./components/testcase/TestcasePanel";
 import { selectedTestcaseIdAtom } from "./states/selectedTestcase";
 
 const CodeRunner: FC = () => {

@@ -3,13 +3,13 @@ import { FormEventHandler } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import {
-  executeTargetAtom,
-  executeTargetFilenameSelector,
-} from "../../states/executeTarget";
+  executableTargetAtom,
+  executableTargetFilenameSelector,
+} from "../../states/executableTarget";
 
 const ChooseExecuteTarget = () => {
-  const setExecuteTarget = useSetRecoilState(executeTargetAtom);
-  const filename = useRecoilValue(executeTargetFilenameSelector);
+  const setExecuteTarget = useSetRecoilState(executableTargetAtom);
+  const filename = useRecoilValue(executableTargetFilenameSelector);
 
   const handleFileInput: FormEventHandler<HTMLInputElement> = (e) => {
     if (!(e.target instanceof HTMLInputElement)) {
@@ -29,6 +29,7 @@ const ChooseExecuteTarget = () => {
       <FileInput
         onInputChange={handleFileInput}
         text={filename ?? "파일 선택..."}
+        hasSelection={!!filename}
       ></FileInput>
     </>
   );

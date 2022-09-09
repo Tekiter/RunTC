@@ -3,13 +3,13 @@ import { useContext } from "react";
 import { useRecoilCallback, useRecoilValue } from "recoil";
 
 import { RunnerContext } from "@/lib/testcaseRunner/runnerContext";
+import { executableTargetAtom } from "@/states/executableTarget";
 import { executedResultFamily } from "@/states/executedResult";
-import { executeTargetAtom } from "@/states/executeTarget";
 import { testcaseFamily, testcaseIdsAtom } from "@/states/testcase";
 
 const useTestcaseRunner = () => {
   const runner = useContext(RunnerContext);
-  const executablePath = useRecoilValue(executeTargetAtom);
+  const executablePath = useRecoilValue(executableTargetAtom);
 
   const run = useRecoilCallback(({ snapshot, set }) => async (id: string) => {
     if (!executablePath) {
@@ -22,41 +22,39 @@ const useTestcaseRunner = () => {
 
     const testcase = await snapshot.getPromise(testcaseFamily(id));
 
-    if (testcase.input.type === "plainText") {
-      const [err, ret] = await to(
-        runner.run(id, {
-          filepath: executablePath,
-          stdin: testcase.input.text,
-          timeout: 2000,
-        })
-      );
+    const [err, ret] = await to(
+      runner.run(id, {
+        filepath: executablePath,
+        stdin: testcase.input.text,
+        timeout: 2000,
+      })
+    );
 
-      if (err) {
-        set(executedResultFamily(id), {
-          status: "error",
-          message: err.message,
-        });
+    if (err) {
+      set(executedResultFamily(id), {
+        status: "error",
+        message: err.message,
+      });
 
-        return;
-      }
+      return;
+    }
 
-      if (ret.status === "exited") {
-        set(executedResultFamily(id), {
-          status: "exited",
-          stdout: ret.stdout,
-          stderr: ret.stderr,
-          exitCode: ret.exitCode,
-        });
-      } else if (ret.status === "timeout") {
-        set(executedResultFamily(id), {
-          status: "timeout",
-        });
-      } else {
-        set(executedResultFamily(id), {
-          status: "error",
-          message: ret.stderr,
-        });
-      }
+    if (ret.status === "exited") {
+      set(executedResultFamily(id), {
+        status: "exited",
+        stdout: ret.stdout,
+        stderr: ret.stderr,
+        exitCode: ret.exitCode,
+      });
+    } else if (ret.status === "timeout") {
+      set(executedResultFamily(id), {
+        status: "timeout",
+      });
+    } else {
+      set(executedResultFamily(id), {
+        status: "error",
+        message: ret.stderr,
+      });
     }
   });
 
