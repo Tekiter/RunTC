@@ -21,7 +21,7 @@ const SelectTestcaseItem: FC<SelectTestcaseItemProps> = ({
 
   return (
     <StyledItem selected={selected} onClick={onClick}>
-      <h2>{name}</h2>
+      <Name selected={selected}>{name !== "" ? name : "이름 없음"}</Name>
     </StyledItem>
   );
 };
@@ -43,4 +43,13 @@ const StyledItem = styled.div<{ selected: boolean }>`
   &:hover {
     background-color: ${color.values.hoverBackground};
   }
+`;
+
+const Name = styled.h2<{ selected: boolean }>`
+  ${(props) =>
+    props.selected
+      ? css`
+          font-weight: 500;
+        `
+      : ""}
 `;
