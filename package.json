@@ -1,9 +1,8 @@
 {
-  "name": "electron-vite-react",
-  "productName": "Electron",
-  "private": true,
-  "version": "2.0.0",
-  "description": "Vite React Electron boilerplate.",
+  "name": "run-tc",
+  "productName": "RunTC",
+  "author": "Tekiter <tekiter8@gmail.com>",
+  "version": "0.0.1",
   "license": "MIT",
   "main": "dist/electron/main/index.js",
   "scripts": {
