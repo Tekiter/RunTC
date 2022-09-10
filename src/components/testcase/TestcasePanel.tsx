@@ -107,7 +107,7 @@ const Panel = styled.div<{ show: boolean }>`
   ${(props) =>
     !props.show
       ? css`
-          display: none;
+          visibility: collapse;
         `
       : ""}
 `;

@@ -35,7 +35,7 @@ const TerminalOutput: FC<OutputProps> = ({ content }) => {
     terminalRef.current = term;
     fitAddonRef.current = fitAddon;
 
-    fitAddon.fit();
+    requestAnimationFrame(handleResize);
 
     return () => {
       term.dispose();
