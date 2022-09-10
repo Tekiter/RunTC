@@ -1,23 +1,22 @@
-import { EditableText, H1, Tab, TabId, Tabs } from "@blueprintjs/core";
+import { Tab, TabId, Tabs } from "@blueprintjs/core";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FC, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 import useTestcaseCommand from "@/commands/useTestcaseCommand";
-import useTestcaseRunner from "@/commands/useTestcaseRunner";
 import { executedResultFamily } from "@/states/executedResult";
 import { testcaseFamily, TestcaseID } from "@/states/testcase";
 
 import InputEditor from "./InputEditor";
 import TerminalOutput from "./TerminalOutput";
+import TestcaseInfo from "./TestcaseInfo";
 
 interface TestcasePanelProps {
   testcaseId: TestcaseID;
 }
 
 const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
-  const runner = useTestcaseRunner();
   const testcaseCommand = useTestcaseCommand();
   const testcase = useRecoilValue(testcaseFamily(testcaseId));
   const result = useRecoilValue(executedResultFamily(testcaseId));
@@ -27,16 +26,7 @@ const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
   return (
     <StyledTestcasePanel>
       <HeaderArea>
-        <H1>
-          <EditableText
-            value={testcase.name}
-            onChange={(name) =>
-              testcaseCommand.changeValue(testcaseId, { name })
-            }
-          />
-        </H1>
-        <button onClick={() => runner.run(testcaseId)}>Run</button>
-        <button onClick={() => testcaseCommand.remove(testcaseId)}>삭제</button>
+        <TestcaseInfo testcaseId={testcaseId} />
       </HeaderArea>
       <TabArea>
         <Tabs
