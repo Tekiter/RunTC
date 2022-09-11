@@ -1,5 +1,3 @@
-import "xterm/css/xterm.css";
-
 import { ResizeSensor } from "@blueprintjs/core";
 import styled from "@emotion/styled";
 import { FC, useEffect, useRef } from "react";

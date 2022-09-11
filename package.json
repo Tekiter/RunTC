@@ -19,6 +19,7 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@uiw/react-codemirror": "^4.12.1",
+    "allotment": "^1.17.0",
     "await-to-js": "^3.0.0",
     "electron-store": "^8.1.0",
     "emotion-reset": "^3.0.1",

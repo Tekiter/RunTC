@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Allotment } from "allotment";
 import { FC, ReactNode } from "react";
 
 import { color } from "@/styles/color";
@@ -11,8 +12,14 @@ interface AppLayoutProps {
 const AppLayout: FC<AppLayoutProps> = ({ leftPanel, content }) => {
   return (
     <StyledAppLayout>
-      <LeftPanelSlot>{leftPanel}</LeftPanelSlot>
-      <ContentSlot>{content}</ContentSlot>
+      <Allotment>
+        <Allotment.Pane minSize={300} preferredSize={400}>
+          <LeftPanelSlot>{leftPanel}</LeftPanelSlot>
+        </Allotment.Pane>
+        <Allotment.Pane>
+          <ContentSlot>{content}</ContentSlot>
+        </Allotment.Pane>
+      </Allotment>
     </StyledAppLayout>
   );
 };
@@ -24,13 +31,12 @@ const StyledAppLayout = styled.div`
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
-
-  display: flex;
-  flex-direction: row;
 `;
 
 const LeftPanelSlot = styled.div`
+  height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
 
@@ -38,6 +44,7 @@ const LeftPanelSlot = styled.div`
 `;
 
 const ContentSlot = styled.div`
+  height: 100%;
   flex-grow: 1;
 
   background-color: ${color.values.background};

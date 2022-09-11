@@ -1,4 +1,6 @@
 import "@blueprintjs/core/lib/css/blueprint.css";
+import "allotment/dist/style.css";
+import "xterm/css/xterm.css";
 
 import { Global } from "@emotion/react";
 import { RecoilRoot } from "recoil";
