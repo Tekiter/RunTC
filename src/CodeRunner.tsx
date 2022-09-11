@@ -1,4 +1,4 @@
-import { Button } from "@blueprintjs/core";
+import { Button } from "@chakra-ui/react";
 import { FC } from "react";
 import { useRecoilValue } from "recoil";
 
@@ -22,7 +22,9 @@ const CodeRunner: FC = () => {
             <ChooseExecuteTarget />
           </PanelFrame>
           <PanelFrame title="작업">
-            <Button onClick={runner.runAll}>Run</Button>
+            <Button size="sm" onClick={runner.runAll}>
+              Run
+            </Button>
           </PanelFrame>
           <PanelFrame title="테스트 케이스">
             <SelectTestcaseMenu />

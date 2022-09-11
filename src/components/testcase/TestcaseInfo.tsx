@@ -1,4 +1,9 @@
-import { Button, EditableText, H1 } from "@blueprintjs/core";
+import {
+  Button,
+  Editable,
+  EditableInput,
+  EditablePreview,
+} from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { FC } from "react";
 import { useRecoilValue } from "recoil";
@@ -18,11 +23,13 @@ const TestcaseInfo: FC<TestcaseInfoProps> = ({ testcaseId }) => {
 
   return (
     <StyledTestcaseInfo>
-      <Name>
-        <EditableText
-          value={testcase.name}
-          onChange={(name) => command.changeValue(testcaseId, { name })}
-        />
+      <Name
+        value={testcase.name}
+        onChange={(name) => command.changeValue(testcaseId, { name })}
+        fontSize={20}
+      >
+        <EditablePreview />
+        <EditableInput />
       </Name>
       <Button onClick={() => runner.run(testcaseId)}>Run</Button>
       <Button onClick={() => command.remove(testcaseId)}>삭제</Button>
@@ -37,7 +44,7 @@ const StyledTestcaseInfo = styled.div`
   height: 3.5rem;
 `;
 
-const Name = styled(H1)`
+const Name = styled(Editable)`
   flex-grow: 1;
   font-weight: 500;
   align-self: center;

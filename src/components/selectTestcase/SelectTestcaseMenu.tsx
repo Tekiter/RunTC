@@ -1,4 +1,4 @@
-import { Button } from "@blueprintjs/core";
+import { Button } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { FC } from "react";
 import { useRecoilValue } from "recoil";

@@ -1,4 +1,4 @@
-import { Tab, TabId, Tabs } from "@blueprintjs/core";
+import { Tab, TabList, Tabs } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FC, useState } from "react";
@@ -21,7 +21,7 @@ const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
   const testcase = useRecoilValue(testcaseFamily(testcaseId));
   const result = useRecoilValue(executedResultFamily(testcaseId));
 
-  const [selectedTabId, setSelectedTabId] = useState<TabId>("input");
+  const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 
   return (
     <StyledTestcasePanel>
@@ -29,20 +29,17 @@ const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
         <TestcaseInfo testcaseId={testcaseId} />
       </HeaderArea>
       <TabArea>
-        <Tabs
-          id="testcaseTabs"
-          large
-          selectedTabId={selectedTabId}
-          onChange={(id) => setSelectedTabId(id)}
-        >
-          <Tab id="input" title="입력" />
-          <Tab id="output" title="출력" />
-          <Tab id="error" title="에러" />
-          <Tab id="others" title="부가정보" />
+        <Tabs onChange={setSelectedTabIndex}>
+          <TabList>
+            <Tab>입력</Tab>
+            <Tab>출력</Tab>
+            <Tab>에러</Tab>
+            <Tab>부가정보</Tab>
+          </TabList>
         </Tabs>
       </TabArea>
       <ContentArea>
-        <Panel show={selectedTabId === "input"}>
+        <Panel show={selectedTabIndex === 0}>
           <InputEditor
             value={testcase.input}
             onChange={(input) =>
@@ -50,17 +47,17 @@ const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
             }
           />
         </Panel>
-        <Panel show={selectedTabId === "output"}>
+        <Panel show={selectedTabIndex === 1}>
           <TerminalOutput
             content={result.status === "exited" ? result.stdout : ""}
           />
         </Panel>
-        <Panel show={selectedTabId === "error"}>
+        <Panel show={selectedTabIndex === 2}>
           <TerminalOutput
             content={result.status === "exited" ? result.stderr : ""}
           />
         </Panel>
-        <Panel show={selectedTabId === "others"}>
+        <Panel show={selectedTabIndex === 3}>
           <p>{JSON.stringify(result)}</p>
         </Panel>
       </ContentArea>

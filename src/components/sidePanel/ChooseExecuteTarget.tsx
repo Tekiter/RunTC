@@ -1,5 +1,6 @@
-import { FileInput } from "@blueprintjs/core";
-import { FormEventHandler } from "react";
+import { Input, InputGroup } from "@chakra-ui/react";
+import styled from "@emotion/styled";
+import { FormEventHandler, useRef } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import {
@@ -8,6 +9,8 @@ import {
 } from "../../states/executableTarget";
 
 const ChooseExecuteTarget = () => {
+  const fileRef = useRef<HTMLInputElement>(null);
+
   const setExecuteTarget = useSetRecoilState(executableTargetAtom);
   const filename = useRecoilValue(executableTargetFilenameSelector);
 
@@ -26,13 +29,20 @@ const ChooseExecuteTarget = () => {
 
   return (
     <>
-      <FileInput
-        onInputChange={handleFileInput}
-        text={filename ?? "파일 선택..."}
-        hasSelection={!!filename}
-      ></FileInput>
+      <HiddenFileInput ref={fileRef} type="file" onChange={handleFileInput} />
+      <InputGroup>
+        <Input
+          placeholder={"Your file ..."}
+          onClick={() => fileRef.current?.click()}
+          value={filename ?? ""}
+        />
+      </InputGroup>
     </>
   );
 };
 
 export default ChooseExecuteTarget;
+
+const HiddenFileInput = styled.input`
+  display: none;
+`;

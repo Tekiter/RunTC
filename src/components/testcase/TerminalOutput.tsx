@@ -1,6 +1,6 @@
-import { ResizeSensor } from "@blueprintjs/core";
 import styled from "@emotion/styled";
-import { FC, useEffect, useRef } from "react";
+import { FC, useCallback, useEffect, useRef } from "react";
+import { useResizeDetector } from "react-resize-detector";
 import { Terminal } from "xterm";
 import { FitAddon } from "xterm-addon-fit";
 
@@ -13,9 +13,11 @@ const TerminalOutput: FC<OutputProps> = ({ content }) => {
   const terminalRef = useRef<Terminal>();
   const fitAddonRef = useRef<FitAddon>();
 
-  const handleResize = () => {
+  const handleResize = useCallback(() => {
     fitAddonRef.current?.fit();
-  };
+  }, []);
+
+  useResizeDetector({ targetRef: containerRef, onResize: handleResize });
 
   useEffect(() => {
     if (!containerRef.current) {
@@ -54,9 +56,7 @@ const TerminalOutput: FC<OutputProps> = ({ content }) => {
 
   return (
     <StyledOutput>
-      <ResizeSensor onResize={handleResize}>
-        <div ref={containerRef} />
-      </ResizeSensor>
+      <div ref={containerRef} />
     </StyledOutput>
   );
 };

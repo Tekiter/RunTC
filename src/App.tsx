@@ -1,7 +1,7 @@
-import "@blueprintjs/core/lib/css/blueprint.css";
 import "allotment/dist/style.css";
 import "xterm/css/xterm.css";
 
+import { ChakraProvider } from "@chakra-ui/react";
 import { Global } from "@emotion/react";
 import { RecoilRoot } from "recoil";
 
@@ -13,10 +13,12 @@ import { globalStyle } from "./styles/global";
 const App: React.FC = () => {
   return (
     <RunnerContext.Provider value={new NodejsRunner()}>
-      <RecoilRoot>
-        <Global styles={globalStyle} />
-        <CodeRunner />
-      </RecoilRoot>
+      <ChakraProvider>
+        <RecoilRoot>
+          <Global styles={globalStyle} />
+          <CodeRunner />
+        </RecoilRoot>
+      </ChakraProvider>
     </RunnerContext.Provider>
   );
 };
