@@ -62,8 +62,8 @@ export const globalStyle = css`
   :not(input):not(textarea)::before {
     -webkit-user-select: none;
     user-select: none;
-    cursor: default;
   }
+
   input,
   button,
   textarea,
