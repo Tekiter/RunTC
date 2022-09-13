@@ -14,8 +14,6 @@
     "node": "^14.18.0 || >=16.0.0"
   },
   "dependencies": {
-    "@blueprintjs/core": "^4.9.3",
-    "@blueprintjs/select": "^4.6.3",
     "@chakra-ui/react": "^2.3.2",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
