@@ -1,6 +1,7 @@
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { FC } from "react";
+import { MdAdd } from "react-icons/md";
 import { useRecoilValue } from "recoil";
 
 import useTestcaseCommand from "@/commands/useTestcaseCommand";
@@ -39,7 +40,10 @@ const SelectTestcaseMenu: FC = () => {
           onClick={() => changeTestcase(id)}
         />
       ))}
-      <AddTestcaseButton onClick={testcaseCommand.add}>추가</AddTestcaseButton>
+      <AddTestcaseButton onClick={testcaseCommand.add}>
+        <AddIcon />
+        테스트 케이스 추가
+      </AddTestcaseButton>
     </StyledMenu>
   );
 };
@@ -49,7 +53,7 @@ export default SelectTestcaseMenu;
 const StyledMenu = styled.div``;
 
 const AddTestcaseButton = styled.div`
-  display: block;
+  display: flex;
   cursor: pointer;
   border-radius: 6px;
   margin: 10px 10px 0 10px;
@@ -62,4 +66,8 @@ const AddTestcaseButton = styled.div`
     color: ${color.values.foreground};
     background-color: ${color.values.hoverBackground};
   }
+`;
+
+const AddIcon = styled(MdAdd)`
+  margin-right: 6px;
 `;

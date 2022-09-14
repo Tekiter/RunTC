@@ -17,7 +17,9 @@ const PanelFrame: FC<PanelFrameProps> = ({ title, children }) => {
 
 export default PanelFrame;
 
-const StyledPanelFrame = styled.div``;
+const StyledPanelFrame = styled.div`
+  margin-bottom: 10px;
+`;
 
 const Title = styled.h3``;
 

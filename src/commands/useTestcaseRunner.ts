@@ -1,6 +1,6 @@
 import to from "await-to-js";
 import { useContext } from "react";
-import { useRecoilCallback, useRecoilValue } from "recoil";
+import { useRecoilCallback } from "recoil";
 
 import { RunnerContext } from "@/lib/testcaseRunner/runnerContext";
 import { executableTargetAtom } from "@/states/executableTarget";
@@ -9,9 +9,11 @@ import { testcaseFamily, testcaseIdsAtom } from "@/states/testcase";
 
 const useTestcaseRunner = () => {
   const runner = useContext(RunnerContext);
-  const executablePath = useRecoilValue(executableTargetAtom);
 
   const run = useRecoilCallback(({ snapshot, set }) => async (id: string) => {
+    const executablePath = await snapshot.getPromise(executableTargetAtom);
+
+    console.log("gogo", id, executablePath);
     if (!executablePath) {
       return;
     }
@@ -63,14 +65,26 @@ const useTestcaseRunner = () => {
       async () => {
         const ids = await snapshot.getPromise(testcaseIdsAtom);
 
-        await Promise.allSettled(ids.map((id) => run(id)));
+        console.log(ids);
+
+        ids.forEach((id) => reset(id));
+
+        for (const id of ids) {
+          console.log("Let's go", id);
+          await run(id);
+        }
       },
     []
   );
 
+  const reset = useRecoilCallback(({ reset }) => (id: string) => {
+    reset(executedResultFamily(id));
+  });
+
   return {
     runAll,
     run,
+    reset,
   };
 };
 

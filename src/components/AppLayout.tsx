@@ -13,7 +13,7 @@ const AppLayout: FC<AppLayoutProps> = ({ leftPanel, content }) => {
   return (
     <StyledAppLayout>
       <Allotment>
-        <Allotment.Pane minSize={300} preferredSize={400}>
+        <Allotment.Pane minSize={200} preferredSize={300}>
           <LeftPanelSlot>{leftPanel}</LeftPanelSlot>
         </Allotment.Pane>
         <Allotment.Pane>

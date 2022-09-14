@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FC } from "react";
+import { PuffLoader } from "react-spinners";
 import { useRecoilValue } from "recoil";
 
 import { testcaseFamily } from "@/states/testcase";
@@ -23,7 +24,12 @@ const SelectTestcaseItem: FC<SelectTestcaseItemProps> = ({
 
   return (
     <StyledItem selected={selected} onClick={onClick}>
-      <Dot status={status} />
+      {status === "running" ? (
+        <PuffLoader size="10px" color={statusColorMap.running} />
+      ) : (
+        <Dot status={status} />
+      )}
+
       <Name selected={selected}>{name !== "" ? name : "이름 없음"}</Name>
       <StatusMessage status={status}>
         {statusDescriptionMap[status] ?? status}
@@ -35,12 +41,12 @@ const SelectTestcaseItem: FC<SelectTestcaseItemProps> = ({
 export default SelectTestcaseItem;
 
 const statusColorMap: Record<TestcaseResult[number], string> = {
-  idle: "#bbbbbb",
-  running: "black",
-  AC: "#20b941",
-  WA: "#921515",
-  TLE: "#921515",
-  RE: "#143168",
+  idle: color.values.statusIdle,
+  running: color.values.statusRunning,
+  AC: color.values.statusAC,
+  WA: color.values.statusWA,
+  TLE: color.values.statusTLE,
+  RE: color.values.statusRE,
 };
 
 const statusDescriptionMap: Record<TestcaseResult[number], string> = {
@@ -54,7 +60,7 @@ const statusDescriptionMap: Record<TestcaseResult[number], string> = {
 
 const StyledItem = styled.div<{ selected: boolean }>`
   display: grid;
-  grid-template-columns: auto max-content minmax(16px, 1fr);
+  grid-template-columns: 10px max-content minmax(16px, 1fr);
   align-items: center;
 
   cursor: pointer;
@@ -97,7 +103,6 @@ const Dot = styled.span<{ status: TestcaseResult }>`
   width: 8px;
 
   border-radius: 50%;
-  display: inline-block;
 
   ${(props) => css`
     background-color: ${statusColorMap[props.status]};

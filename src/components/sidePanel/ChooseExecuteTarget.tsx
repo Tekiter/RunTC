@@ -35,6 +35,7 @@ const ChooseExecuteTarget = () => {
           placeholder={"Your file ..."}
           onClick={() => fileRef.current?.click()}
           value={filename ?? ""}
+          readOnly
         />
       </InputGroup>
     </>
