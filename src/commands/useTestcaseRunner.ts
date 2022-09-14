@@ -4,7 +4,7 @@ import { useRecoilCallback } from "recoil";
 
 import { RunnerContext } from "@/lib/testcaseRunner/runnerContext";
 import { executableTargetAtom } from "@/states/executableTarget";
-import { executedResultFamily } from "@/states/executedResult";
+import { executedResultFamily, shouldCancel } from "@/states/executedResult";
 import { testcaseFamily, testcaseIdsAtom } from "@/states/testcase";
 
 const useTestcaseRunner = () => {
@@ -13,7 +13,6 @@ const useTestcaseRunner = () => {
   const run = useRecoilCallback(({ snapshot, set }) => async (id: string) => {
     const executablePath = await snapshot.getPromise(executableTargetAtom);
 
-    console.log("gogo", id, executablePath);
     if (!executablePath) {
       return;
     }
@@ -65,26 +64,33 @@ const useTestcaseRunner = () => {
       async () => {
         const ids = await snapshot.getPromise(testcaseIdsAtom);
 
-        console.log(ids);
-
-        ids.forEach((id) => reset(id));
+        ids.forEach((id) => makeIdle(id));
 
         for (const id of ids) {
-          console.log("Let's go", id);
           await run(id);
         }
       },
     []
   );
 
-  const reset = useRecoilCallback(({ reset }) => (id: string) => {
+  const makeIdle = useRecoilCallback(({ reset }) => (id: string) => {
     reset(executedResultFamily(id));
   });
+
+  const stopAll = useRecoilCallback(
+    ({ set }) =>
+      async () => {
+        set(shouldCancel, true);
+        console.log("SET");
+      },
+    []
+  );
 
   return {
     runAll,
     run,
-    reset,
+    makeIdle,
+    stopAll,
   };
 };
 

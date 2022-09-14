@@ -1,4 +1,6 @@
-import { atomFamily } from "recoil";
+import { atom, atomFamily, selector } from "recoil";
+
+import { testcaseIdsAtom } from "./testcase";
 
 export type ExecutedResult =
   | ExecutedResultIdle
@@ -28,4 +30,18 @@ export const executedResultFamily = atomFamily<ExecutedResult, string>({
   default: () => ({
     status: "idle",
   }),
+});
+
+export const isRunningSelector = selector({
+  key: "isRunningSelector",
+  get: ({ get }) => {
+    const ids = get(testcaseIdsAtom);
+
+    return ids.some((id) => get(executedResultFamily(id)).status === "running");
+  },
+});
+
+export const shouldCancel = atom({
+  key: "shouldCancel",
+  default: false,
 });

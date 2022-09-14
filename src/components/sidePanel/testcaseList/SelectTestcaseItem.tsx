@@ -60,7 +60,7 @@ const statusDescriptionMap: Record<TestcaseResult[number], string> = {
 
 const StyledItem = styled.div<{ selected: boolean }>`
   display: grid;
-  grid-template-columns: 10px max-content minmax(16px, 1fr);
+  grid-template-columns: 10px minmax(16px, 1fr) max-content;
   align-items: center;
 
   cursor: pointer;
@@ -81,6 +81,12 @@ const StyledItem = styled.div<{ selected: boolean }>`
 
 const Name = styled.h2<{ selected: boolean }>`
   padding-left: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  justify-self: normal;
+
   ${(props) =>
     props.selected
       ? css`

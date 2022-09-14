@@ -1,11 +1,9 @@
-import { Button, ButtonGroup } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { FC } from "react";
 import { MdAdd } from "react-icons/md";
 import { useRecoilValue } from "recoil";
 
 import useTestcaseCommand from "@/commands/useTestcaseCommand";
-import useTestcaseRunner from "@/commands/useTestcaseRunner";
 import { selectedTestcaseIdAtom } from "@/states/selectedTestcase";
 import { testcaseIdsAtom } from "@/states/testcase";
 import { color } from "@/styles/color";
@@ -14,7 +12,6 @@ import SelectTestcaseItem from "./SelectTestcaseItem";
 
 const SelectTestcaseMenu: FC = () => {
   const testcaseCommand = useTestcaseCommand();
-  const runner = useTestcaseRunner();
   const testcaseIds = useRecoilValue(testcaseIdsAtom);
   const selectedTestcaseKey = useRecoilValue(selectedTestcaseIdAtom);
 
@@ -24,14 +21,6 @@ const SelectTestcaseMenu: FC = () => {
 
   return (
     <StyledMenu>
-      <ButtonGroup width="100%" isAttached>
-        <Button onClick={runner.runAll} size="sm">
-          모두 실행
-        </Button>
-        <Button onClick={runner.runAll} size="sm">
-          모두 중단
-        </Button>
-      </ButtonGroup>
       {testcaseIds.map((id) => (
         <SelectTestcaseItem
           key={id}

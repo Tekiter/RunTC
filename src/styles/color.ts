@@ -8,6 +8,8 @@ export const color = createCSSVariables(
     selectedBackground: "rgba(0, 24, 42, .07)",
     grayForeground: "rgba(0, 24, 42, 0.65)",
     foreground: "rgba(0, 24, 42, 1)",
+    disabledForebround: "rgba(0, 24, 42, 0.2)",
+    error: "#e53e3e",
 
     statusIdle: "#bbbbbb",
     statusRunning: "#ae9504",

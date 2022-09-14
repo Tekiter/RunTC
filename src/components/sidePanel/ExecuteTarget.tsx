@@ -1,4 +1,4 @@
-import { Input, InputGroup } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { FormEventHandler, useRef } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -8,7 +8,7 @@ import {
   executableTargetFilenameSelector,
 } from "../../states/executableTarget";
 
-const ChooseExecuteTarget = () => {
+const ExecuteTarget = () => {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const setExecuteTarget = useSetRecoilState(executableTargetAtom);
@@ -28,22 +28,31 @@ const ChooseExecuteTarget = () => {
   };
 
   return (
-    <>
-      <HiddenFileInput ref={fileRef} type="file" onChange={handleFileInput} />
-      <InputGroup>
-        <Input
-          placeholder={"Your file ..."}
-          onClick={() => fileRef.current?.click()}
-          value={filename ?? ""}
-          readOnly
-        />
-      </InputGroup>
-    </>
+    <StyledExecuteTarget>
+      <FileInputHelper ref={fileRef} type="file" onChange={handleFileInput} />
+      <FileInput
+        placeholder="실행 파일 선택..."
+        onClick={() => fileRef.current?.click()}
+        value={filename ?? ""}
+        size="md"
+        readOnly
+        variant="filled"
+        isInvalid={filename === null}
+      />
+    </StyledExecuteTarget>
   );
 };
 
-export default ChooseExecuteTarget;
+export default ExecuteTarget;
 
-const HiddenFileInput = styled.input`
+const StyledExecuteTarget = styled.div`
+  padding: 8px;
+`;
+
+const FileInputHelper = styled.input`
   display: none;
+`;
+
+const FileInput = styled(Input)`
+  cursor: pointer;
 `;
