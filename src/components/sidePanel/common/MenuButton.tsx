@@ -65,4 +65,10 @@ const StyledMenuItem = styled.div<{ disabled: boolean }>`
 
 const IconArea = styled.div`
   margin-right: 6px;
+
+  width: 16px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

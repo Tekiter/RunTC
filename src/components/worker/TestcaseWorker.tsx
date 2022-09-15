@@ -4,16 +4,16 @@ import { useRecoilCallback } from "recoil";
 
 import { RunningQueueContext } from "@/context/runningQueue";
 import { RunnerContext } from "@/lib/testcaseRunner/runnerContext";
-import { executedResultFamily } from "@/states/executedResult";
+import { executeStatusFamily } from "@/states/executeStatus";
 
-const TestcaseQueueWorker: FC = () => {
+const TestcaseWorker: FC = () => {
   const queue = useContext(RunningQueueContext);
   const runner = useContext(RunnerContext);
 
   const processTask = useRecoilCallback(
     ({ set }) =>
       async (testcaseId: string, executablePath: string, stdin: string) => {
-        set(executedResultFamily(testcaseId), () => ({
+        set(executeStatusFamily(testcaseId), () => ({
           status: "running" as const,
         }));
 
@@ -26,7 +26,7 @@ const TestcaseQueueWorker: FC = () => {
         );
 
         if (err) {
-          set(executedResultFamily(testcaseId), {
+          set(executeStatusFamily(testcaseId), {
             status: "error",
             message: err.message,
           });
@@ -35,18 +35,18 @@ const TestcaseQueueWorker: FC = () => {
         }
 
         if (ret.status === "exited") {
-          set(executedResultFamily(testcaseId), {
+          set(executeStatusFamily(testcaseId), {
             status: "exited",
             stdout: ret.stdout,
             stderr: ret.stderr,
             exitCode: ret.exitCode,
           });
         } else if (ret.status === "timeout") {
-          set(executedResultFamily(testcaseId), {
+          set(executeStatusFamily(testcaseId), {
             status: "timeout",
           });
         } else {
-          set(executedResultFamily(testcaseId), {
+          set(executeStatusFamily(testcaseId), {
             status: "error",
             message: ret.stderr,
           });
@@ -68,4 +68,4 @@ const TestcaseQueueWorker: FC = () => {
   return <></>;
 };
 
-export default TestcaseQueueWorker;
+export default TestcaseWorker;

@@ -12,6 +12,7 @@ export const color = createCSSVariables(
     error: "#e53e3e",
 
     statusIdle: "#bbbbbb",
+    statusWaiting: "#777777",
     statusRunning: "#ae9504",
     statusAC: "#20b941",
     statusWA: "#921515",

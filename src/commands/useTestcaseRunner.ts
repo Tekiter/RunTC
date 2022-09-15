@@ -3,13 +3,13 @@ import { useRecoilCallback } from "recoil";
 
 import { RunningQueueContext } from "@/context/runningQueue";
 import { executableTargetAtom } from "@/states/executableTarget";
-import { executedResultFamily } from "@/states/executedResult";
+import { executeStatusFamily } from "@/states/executeStatus";
 import { testcaseFamily, testcaseIdsAtom } from "@/states/testcase";
 
 const useTestcaseRunner = () => {
   const queue = useContext(RunningQueueContext);
 
-  const run = useRecoilCallback(({ snapshot }) => async (id: string) => {
+  const run = useRecoilCallback(({ snapshot, set }) => async (id: string) => {
     const executablePath = await snapshot.getPromise(executableTargetAtom);
 
     if (!executablePath) {
@@ -17,6 +17,13 @@ const useTestcaseRunner = () => {
     }
 
     const testcase = await snapshot.getPromise(testcaseFamily(id));
+    const { status } = await snapshot.getPromise(executeStatusFamily(id));
+
+    if (status === "waiting" || status === "running") {
+      return;
+    }
+
+    set(executeStatusFamily(id), { status: "waiting" });
 
     queue.add({
       testcaseId: id,
@@ -30,8 +37,6 @@ const useTestcaseRunner = () => {
       async () => {
         const ids = await snapshot.getPromise(testcaseIdsAtom);
 
-        ids.forEach((id) => makeIdle(id));
-
         for (const id of ids) {
           await run(id);
         }
@@ -39,13 +44,14 @@ const useTestcaseRunner = () => {
     []
   );
 
-  const makeIdle = useRecoilCallback(({ reset }) => (id: string) => {
-    reset(executedResultFamily(id));
+  const makeIdle = useRecoilCallback(({ set }) => (id: string) => {
+    set(executeStatusFamily(id), { status: "waiting" });
   });
 
-  const stopAll = () => {
+  const stopAll = useRecoilCallback(() => () => {
+    queue.pause();
     queue.clear();
-  };
+  });
 
   return {
     runAll,

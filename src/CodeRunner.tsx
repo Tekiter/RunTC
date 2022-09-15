@@ -8,14 +8,14 @@ import TestcasePanel from "@/components/testcase/TestcasePanel";
 import { selectedTestcaseIdAtom } from "@/states/selectedTestcase";
 
 import Action from "./components/sidePanel/Action";
-import TestcaseQueueWorker from "./components/worker/TestcaseQueueWorker";
+import TestcaseWorker from "./components/worker/TestcaseWorker";
 
 const CodeRunner: FC = () => {
   const selectedTestcaseId = useRecoilValue(selectedTestcaseIdAtom);
 
   return (
     <>
-      <TestcaseQueueWorker />
+      <TestcaseWorker />
       <AppLayout
         leftPanel={
           <>

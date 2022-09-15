@@ -1,9 +1,10 @@
 import { selectorFamily } from "recoil";
 
-import { executedResultFamily } from "./executedResult";
+import { executeStatusFamily } from "./executeStatus";
 
 export type TestcaseResult =
   | "idle"
+  | "waiting"
   | "running"
   | "AC"
   | "WA"
@@ -16,7 +17,7 @@ export const testcaseResultFamily = selectorFamily<TestcaseResult, string>({
   get:
     (id) =>
     ({ get }) => {
-      const executed = get(executedResultFamily(id));
+      const executed = get(executeStatusFamily(id));
 
       if (executed.status === "idle") {
         return "idle";
@@ -24,6 +25,10 @@ export const testcaseResultFamily = selectorFamily<TestcaseResult, string>({
 
       if (executed.status === "running") {
         return "running";
+      }
+
+      if (executed.status === "waiting") {
+        return "waiting";
       }
 
       if (executed.status === "timeout") {

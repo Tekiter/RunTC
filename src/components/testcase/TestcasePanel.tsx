@@ -5,7 +5,7 @@ import { FC, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 import useTestcaseCommand from "@/commands/useTestcaseCommand";
-import { executedResultFamily } from "@/states/executedResult";
+import { executeStatusFamily } from "@/states/executeStatus";
 import { testcaseFamily, TestcaseID } from "@/states/testcase";
 
 import InputEditor from "./InputEditor";
@@ -19,7 +19,7 @@ interface TestcasePanelProps {
 const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
   const testcaseCommand = useTestcaseCommand();
   const testcase = useRecoilValue(testcaseFamily(testcaseId));
-  const result = useRecoilValue(executedResultFamily(testcaseId));
+  const result = useRecoilValue(executeStatusFamily(testcaseId));
 
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 

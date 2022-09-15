@@ -42,6 +42,7 @@ export default SelectTestcaseItem;
 
 const statusColorMap: Record<TestcaseResult[number], string> = {
   idle: color.values.statusIdle,
+  waiting: color.values.statusWaiting,
   running: color.values.statusRunning,
   AC: color.values.statusAC,
   WA: color.values.statusWA,
@@ -51,6 +52,7 @@ const statusColorMap: Record<TestcaseResult[number], string> = {
 
 const statusDescriptionMap: Record<TestcaseResult[number], string> = {
   idle: "",
+  waiting: "대기중",
   running: "실행중",
   AC: "맞았습니다",
   WA: "틀렸습니다",
