@@ -48,9 +48,18 @@ const useTestcaseRunner = () => {
     set(executeStatusFamily(id), { status: "waiting" });
   });
 
-  const stopAll = useRecoilCallback(() => () => {
-    queue.pause();
+  const stopAll = useRecoilCallback(({ snapshot, set }) => async () => {
     queue.clear();
+
+    const ids = await snapshot.getPromise(testcaseIdsAtom);
+    for (const id of ids) {
+      const { status } = await snapshot.getPromise(executeStatusFamily(id));
+      if (status === "waiting") {
+        set(executeStatusFamily(id), { status: "idle" });
+      } else if (status === "running") {
+        set(executeStatusFamily(id), { status: "idle" });
+      }
+    }
   });
 
   return {

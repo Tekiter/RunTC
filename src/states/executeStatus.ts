@@ -39,6 +39,9 @@ export const isRunningSelector = selector({
   get: ({ get }) => {
     const ids = get(testcaseIdsAtom);
 
-    return ids.some((id) => get(executeStatusFamily(id)).status === "running");
+    return ids.some((id) => {
+      const { status } = get(executeStatusFamily(id));
+      return status === "running" || status === "waiting";
+    });
   },
 });
