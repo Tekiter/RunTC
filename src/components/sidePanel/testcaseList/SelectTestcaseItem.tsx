@@ -48,6 +48,7 @@ const statusColorMap: Record<TestcaseResult[number], string> = {
   WA: color.values.statusWA,
   TLE: color.values.statusTLE,
   RE: color.values.statusRE,
+  IE: color.values.statusRE,
 };
 
 const statusDescriptionMap: Record<TestcaseResult[number], string> = {
@@ -58,6 +59,7 @@ const statusDescriptionMap: Record<TestcaseResult[number], string> = {
   WA: "틀렸습니다",
   TLE: "시간초과",
   RE: "런타임에러",
+  IE: "실행실패",
 };
 
 const StyledItem = styled.div<{ selected: boolean }>`
