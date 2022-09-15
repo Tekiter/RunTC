@@ -1,4 +1,4 @@
-import { atom, atomFamily, selector } from "recoil";
+import { atomFamily, selector } from "recoil";
 
 import { testcaseIdsAtom } from "./testcase";
 
@@ -39,9 +39,4 @@ export const isRunningSelector = selector({
 
     return ids.some((id) => get(executedResultFamily(id)).status === "running");
   },
-});
-
-export const shouldCancel = atom({
-  key: "shouldCancel",
-  default: false,
 });

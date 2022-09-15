@@ -8,27 +8,31 @@ import TestcasePanel from "@/components/testcase/TestcasePanel";
 import { selectedTestcaseIdAtom } from "@/states/selectedTestcase";
 
 import Action from "./components/sidePanel/Action";
+import TestcaseQueueWorker from "./components/worker/TestcaseQueueWorker";
 
 const CodeRunner: FC = () => {
   const selectedTestcaseId = useRecoilValue(selectedTestcaseIdAtom);
 
   return (
-    <AppLayout
-      leftPanel={
-        <>
-          <ExecuteTarget />
-          <Action />
-          <SelectTestcaseMenu />
-        </>
-      }
-      content={
-        <>
-          {selectedTestcaseId ? (
-            <TestcasePanel testcaseId={selectedTestcaseId} />
-          ) : null}
-        </>
-      }
-    />
+    <>
+      <TestcaseQueueWorker />
+      <AppLayout
+        leftPanel={
+          <>
+            <ExecuteTarget />
+            <Action />
+            <SelectTestcaseMenu />
+          </>
+        }
+        content={
+          <>
+            {selectedTestcaseId ? (
+              <TestcasePanel testcaseId={selectedTestcaseId} />
+            ) : null}
+          </>
+        }
+      />
+    </>
   );
 };
 

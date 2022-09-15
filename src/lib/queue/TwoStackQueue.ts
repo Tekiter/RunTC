@@ -30,6 +30,11 @@ export default class TwoStackQueue<T> implements Queue<T> {
       : null;
   }
 
+  clear() {
+    this.instk = [];
+    this.outstk = [];
+  }
+
   private arrange() {
     if (this.outstk.length === 0) {
       let d: T | undefined;
