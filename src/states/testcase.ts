@@ -4,11 +4,15 @@ export interface Testcase {
   id: TestcaseID;
   name: string;
   input: TestcaseInput;
+  answer: TestcaseAnswer;
 }
 
 export type TestcaseID = string;
 
 export type TestcaseInput = { type: "plainText"; text: string };
+export type TestcaseAnswer =
+  | { type: "disable" }
+  | { type: "plainText"; text: string };
 
 export type TestcaseInputType = TestcaseInput["type"];
 
@@ -18,6 +22,10 @@ const testcaseInternalFamily = atomFamily<Testcase, string>({
     id,
     name: "",
     input: {
+      type: "plainText",
+      text: "",
+    },
+    answer: {
       type: "plainText",
       text: "",
     },

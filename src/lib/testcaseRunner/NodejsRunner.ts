@@ -82,9 +82,8 @@ export class NodejsRunner implements TestcaseRunner {
           });
         }, timeout);
 
-        ls.stdin.cork();
         ls.stdin.write(stdin);
-        ls.stdin.uncork();
+        ls.stdin.end();
       } catch (e) {
         reject(e);
       }

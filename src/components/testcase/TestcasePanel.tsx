@@ -8,6 +8,7 @@ import useTestcaseCommand from "@/commands/useTestcaseCommand";
 import { executeStatusFamily } from "@/states/executeStatus";
 import { testcaseFamily, TestcaseID } from "@/states/testcase";
 
+import AnswerEditor from "./AnswerEditor";
 import InputEditor from "./InputEditor";
 import TerminalOutput from "./TerminalOutput";
 import TestcaseInfo from "./TestcaseInfo";
@@ -32,6 +33,7 @@ const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
         <Tabs onChange={setSelectedTabIndex}>
           <TabList>
             <Tab>입력</Tab>
+            <Tab>정답</Tab>
             <Tab>출력</Tab>
             <Tab>에러</Tab>
             <Tab>부가정보</Tab>
@@ -48,16 +50,24 @@ const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
           />
         </Panel>
         <Panel show={selectedTabIndex === 1}>
-          <TerminalOutput
-            content={result.status === "exited" ? result.stdout : ""}
+          <AnswerEditor
+            value={testcase.answer}
+            onChange={(answer) =>
+              testcaseCommand.changeValue(testcaseId, { answer })
+            }
           />
         </Panel>
         <Panel show={selectedTabIndex === 2}>
           <TerminalOutput
-            content={result.status === "exited" ? result.stderr : ""}
+            content={result.status === "exited" ? result.stdout : ""}
           />
         </Panel>
         <Panel show={selectedTabIndex === 3}>
+          <TerminalOutput
+            content={result.status === "exited" ? result.stderr : ""}
+          />
+        </Panel>
+        <Panel show={selectedTabIndex === 4}>
           <p>{JSON.stringify(result)}</p>
         </Panel>
       </ContentArea>

@@ -20,6 +20,7 @@ const useTestcaseCommand = () => {
       id,
       name: `테스트 케이스 ${serialCounter}`,
       input: { type: "plainText" as const, text: "" },
+      answer: { type: "plainText" as const, text: "" },
     });
     set(selectedTestcaseIdAtom, id);
     setSerialCounter((val) => val + 1);

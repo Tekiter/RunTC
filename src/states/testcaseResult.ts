@@ -1,11 +1,13 @@
 import { selectorFamily } from "recoil";
 
 import { executeStatusFamily } from "./executeStatus";
+import { testcaseFamily } from "./testcase";
 
 export type TestcaseResult =
   | "idle"
   | "waiting"
   | "running"
+  | "FIN"
   | "AC"
   | "WA"
   | "TLE"
@@ -18,6 +20,7 @@ export const testcaseResultFamily = selectorFamily<TestcaseResult, string>({
     (id) =>
     ({ get }) => {
       const executed = get(executeStatusFamily(id));
+      const testcase = get(testcaseFamily(id));
 
       if (executed.status === "idle") {
         return "idle";
@@ -44,9 +47,20 @@ export const testcaseResultFamily = selectorFamily<TestcaseResult, string>({
           return "RE";
         }
 
-        return "AC";
+        if (testcase.answer.type === "plainText") {
+          if (compareResult(executed.stdout, testcase.answer.text)) {
+            return "AC";
+          }
+          return "WA";
+        }
+
+        return "FIN";
       }
 
       throw new Error("Invalid Status");
     },
 });
+
+function compareResult(a: string, b: string) {
+  return a.trim() === b.trim();
+}
