@@ -4,6 +4,10 @@ import { FC } from "react";
 import { PuffLoader } from "react-spinners";
 import { useRecoilValue } from "recoil";
 
+import {
+  getResultColor,
+  getResultDescription,
+} from "@/components/common/renderResultUtil";
 import { testcaseFamily } from "@/states/testcase";
 import { TestcaseResult, testcaseResultFamily } from "@/states/testcaseResult";
 import { color } from "@/styles/color";
@@ -25,44 +29,20 @@ const SelectTestcaseItem: FC<SelectTestcaseItemProps> = ({
   return (
     <StyledItem selected={selected} onClick={onClick}>
       {status === "running" ? (
-        <PuffLoader size="10px" color={statusColorMap.running} />
+        <PuffLoader size="10px" color={getResultColor("running")} />
       ) : (
         <Dot status={status} />
       )}
 
       <Name selected={selected}>{name !== "" ? name : "이름 없음"}</Name>
       <StatusMessage status={status}>
-        {statusDescriptionMap[status] ?? status}
+        {getResultDescription(status) ?? status}
       </StatusMessage>
     </StyledItem>
   );
 };
 
 export default SelectTestcaseItem;
-
-const statusColorMap: Record<TestcaseResult[number], string> = {
-  idle: color.values.statusIdle,
-  waiting: color.values.statusWaiting,
-  running: color.values.statusRunning,
-  FIN: color.values.statusAC,
-  AC: color.values.statusAC,
-  WA: color.values.statusWA,
-  TLE: color.values.statusTLE,
-  RE: color.values.statusRE,
-  IE: color.values.statusRE,
-};
-
-const statusDescriptionMap: Record<TestcaseResult[number], string> = {
-  idle: "",
-  waiting: "대기중",
-  running: "실행중",
-  FIN: "실행완료",
-  AC: "맞았습니다",
-  WA: "틀렸습니다",
-  TLE: "시간초과",
-  RE: "런타임에러",
-  IE: "실행실패",
-};
 
 const StyledItem = styled.div<{ selected: boolean }>`
   display: grid;
@@ -106,7 +86,7 @@ const StatusMessage = styled.div<{ status: TestcaseResult }>`
   font-size: 0.85em;
 
   ${(props) => css`
-    color: ${statusColorMap[props.status]};
+    color: ${getResultColor(props.status)};
   `}
 `;
 
@@ -117,6 +97,6 @@ const Dot = styled.span<{ status: TestcaseResult }>`
   border-radius: 50%;
 
   ${(props) => css`
-    background-color: ${statusColorMap[props.status]};
+    background-color: ${getResultColor(props.status)};
   `}
 `;
