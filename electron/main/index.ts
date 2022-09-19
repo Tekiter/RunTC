@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell } from "electron";
+import { app, BrowserWindow, Menu, shell } from "electron";
 import { release } from "os";
 import { join } from "path";
 
@@ -58,6 +58,35 @@ async function createWindow() {
   win.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith("https:")) shell.openExternal(url);
     return { action: "deny" };
+  });
+
+  win.webContents.on("context-menu", (_e, props) => {
+    const InputMenu = Menu.buildFromTemplate([
+      {
+        label: "잘라내기",
+        role: "cut",
+      },
+      {
+        label: "복사",
+        role: "copy",
+      },
+      {
+        label: "붙여넣기",
+        role: "paste",
+      },
+      {
+        type: "separator",
+      },
+      {
+        label: "모두 선택",
+        role: "selectAll",
+      },
+    ]);
+    const { isEditable } = props;
+    console.log(props);
+    if (isEditable) {
+      InputMenu.popup({ window: win });
+    }
   });
 }
 
