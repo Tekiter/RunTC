@@ -15,7 +15,7 @@ const Result: FC<ResultProps> = ({ testcaseId }) => {
 
   const message = useMemo(() => {
     if (executeStatus.status === "exited") {
-      const exitCodeString = `\n<프로그램이 종료되었습니다. Exit Code: ${executeStatus.exitCode}>`;
+      const exitCodeString = `\r\n<프로그램이 종료되었습니다. Exit Code: ${executeStatus.exitCode}>\r\n`;
 
       return `${executeStatus.stdout}${executeStatus.stderr}${exitCodeString}`;
     }

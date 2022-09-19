@@ -49,10 +49,6 @@ const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
       title: "출력결과",
       content: <Result testcaseId={testcaseId} />,
     },
-    {
-      title: "출력비교",
-      content: <p>출력비교</p>,
-    },
   ];
 
   return (
