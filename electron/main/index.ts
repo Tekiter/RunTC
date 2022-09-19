@@ -83,7 +83,7 @@ async function createWindow() {
       },
     ]);
     const { isEditable } = props;
-    console.log(props);
+
     if (isEditable) {
       InputMenu.popup({ window: win });
     }
