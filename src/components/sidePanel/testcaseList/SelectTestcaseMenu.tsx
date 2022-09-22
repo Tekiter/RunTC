@@ -1,19 +1,22 @@
 import styled from "@emotion/styled";
 import { FC } from "react";
+import { BiExport, BiImport } from "react-icons/bi";
 import { MdAdd } from "react-icons/md";
 import { useRecoilValue } from "recoil";
 
+import useExport from "@/commands/useExport";
 import useTestcaseCommand from "@/commands/useTestcaseCommand";
 import { selectedTestcaseIdAtom } from "@/states/selectedTestcase";
 import { testcaseIdsAtom } from "@/states/testcase";
-import { color } from "@/styles/color";
 
+import MenuButton from "../common/MenuButton";
 import SelectTestcaseItem from "./SelectTestcaseItem";
 
 const SelectTestcaseMenu: FC = () => {
   const testcaseCommand = useTestcaseCommand();
   const testcaseIds = useRecoilValue(testcaseIdsAtom);
   const selectedTestcaseKey = useRecoilValue(selectedTestcaseIdAtom);
+  const importExport = useExport();
 
   const changeTestcase = (id: string) => {
     testcaseCommand.select(id);
@@ -29,10 +32,18 @@ const SelectTestcaseMenu: FC = () => {
           onClick={() => changeTestcase(id)}
         />
       ))}
-      <AddTestcaseButton onClick={testcaseCommand.add}>
-        <AddIcon />
-        테스트 케이스 추가
-      </AddTestcaseButton>
+      <ActionButtonList>
+        <MenuButton icon={<MdAdd />} onClick={testcaseCommand.add}>
+          테스트 케이스 추가
+        </MenuButton>
+        <Spacer />
+        <MenuButton icon={<BiExport />} onClick={importExport.downloadPacked}>
+          내보내기
+        </MenuButton>
+        <MenuButton icon={<BiImport />} onClick={testcaseCommand.add}>
+          불러오기
+        </MenuButton>
+      </ActionButtonList>
     </StyledMenu>
   );
 };
@@ -41,22 +52,10 @@ export default SelectTestcaseMenu;
 
 const StyledMenu = styled.div``;
 
-const AddTestcaseButton = styled.div`
-  display: flex;
-  cursor: pointer;
-  border-radius: 6px;
-  margin: 10px 10px 0 10px;
-  padding: 10px 15px;
-
-  color: ${color.values.grayForeground};
-  font-weight: 500;
-
-  &:hover {
-    color: ${color.values.foreground};
-    background-color: ${color.values.hoverBackground};
-  }
+const ActionButtonList = styled.div`
+  margin-top: 15px;
 `;
 
-const AddIcon = styled(MdAdd)`
-  margin-right: 6px;
+const Spacer = styled.div`
+  margin-top: 15px;
 `;
