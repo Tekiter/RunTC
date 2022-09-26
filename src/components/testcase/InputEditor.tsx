@@ -23,10 +23,7 @@ const InputEditor: FC<InputEditorProps> = ({ value, onChange }) => {
 
   return (
     <StyledInputEditor>
-      <ReactCodeMirror
-        value={value.text}
-        onChange={(value) => handlePlainTextChange(value)}
-      />
+      <ReactCodeMirror value={value.text} onChange={(value) => handlePlainTextChange(value)} />
     </StyledInputEditor>
   );
 };

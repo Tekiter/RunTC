@@ -2,17 +2,10 @@ import { nanoid } from "nanoid";
 import { useRecoilCallback, useRecoilState } from "recoil";
 
 import { selectedTestcaseIdAtom } from "@/states/selectedTestcase";
-import {
-  Testcase,
-  testcaseFamily,
-  testcaseIdsAtom,
-  testcaseSerialCounterAtom,
-} from "@/states/testcase";
+import { Testcase, testcaseFamily, testcaseIdsAtom, testcaseSerialCounterAtom } from "@/states/testcase";
 
 const useTestcaseCommand = () => {
-  const [serialCounter, setSerialCounter] = useRecoilState(
-    testcaseSerialCounterAtom
-  );
+  const [serialCounter, setSerialCounter] = useRecoilState(testcaseSerialCounterAtom);
 
   const add = useRecoilCallback(({ set }) => () => {
     const id = nanoid();
@@ -26,33 +19,27 @@ const useTestcaseCommand = () => {
     setSerialCounter((val) => val + 1);
   });
 
-  const remove = useRecoilCallback(
-    ({ reset, set, snapshot }) =>
-      async (id: string) => {
-        const cases = (await snapshot.getPromise(testcaseIdsAtom)).slice();
-        reset(testcaseFamily(id));
+  const remove = useRecoilCallback(({ reset, set, snapshot }) => async (id: string) => {
+    const cases = (await snapshot.getPromise(testcaseIdsAtom)).slice();
+    reset(testcaseFamily(id));
 
-        if (cases.length === 1) {
-          set(selectedTestcaseIdAtom, null);
-          return;
-        }
+    if (cases.length === 1) {
+      set(selectedTestcaseIdAtom, null);
+      return;
+    }
 
-        const index = cases.indexOf(id);
+    const index = cases.indexOf(id);
 
-        if (index + 1 < cases.length) {
-          set(selectedTestcaseIdAtom, cases[index + 1]);
-        } else {
-          set(selectedTestcaseIdAtom, cases[index - 1]);
-        }
-      }
-  );
+    if (index + 1 < cases.length) {
+      set(selectedTestcaseIdAtom, cases[index + 1]);
+    } else {
+      set(selectedTestcaseIdAtom, cases[index - 1]);
+    }
+  });
 
-  const changeValue = useRecoilCallback(
-    ({ set }) =>
-      (id: string, value: Partial<Testcase>) => {
-        set(testcaseFamily(id), (prev) => ({ ...prev, ...value }));
-      }
-  );
+  const changeValue = useRecoilCallback(({ set }) => (id: string, value: Partial<Testcase>) => {
+    set(testcaseFamily(id), (prev) => ({ ...prev, ...value }));
+  });
 
   const select = useRecoilCallback(({ set }) => (id: string) => {
     set(selectedTestcaseIdAtom, id);

@@ -3,10 +3,7 @@ import styled from "@emotion/styled";
 import { FormEventHandler, useRef } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import {
-  executableTargetAtom,
-  executableTargetFilenameSelector,
-} from "../../states/executableTarget";
+import { executableTargetAtom, executableTargetFilenameSelector } from "../../states/executableTarget";
 
 const ExecuteTarget = () => {
   const fileRef = useRef<HTMLInputElement>(null);

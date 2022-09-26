@@ -11,12 +11,7 @@ interface MenuButtonProps {
   disabled?: boolean;
 }
 
-const MenuButton: FC<MenuButtonProps> = ({
-  icon,
-  children,
-  onClick,
-  disabled = false,
-}) => {
+const MenuButton: FC<MenuButtonProps> = ({ icon, children, onClick, disabled = false }) => {
   const handleClick: MouseEventHandler<HTMLDivElement> = useCallback(
     (e) => {
       if (disabled) {
@@ -24,7 +19,7 @@ const MenuButton: FC<MenuButtonProps> = ({
       }
       onClick?.(e);
     },
-    [onClick, disabled]
+    [onClick, disabled],
   );
 
   return (

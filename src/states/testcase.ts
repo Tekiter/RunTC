@@ -10,9 +10,7 @@ export interface Testcase {
 export type TestcaseID = string;
 
 export type TestcaseInput = { type: "plainText"; text: string };
-export type TestcaseAnswer =
-  | { type: "disable" }
-  | { type: "plainText"; text: string };
+export type TestcaseAnswer = { type: "disable" } | { type: "plainText"; text: string };
 
 export type TestcaseInputType = TestcaseInput["type"];
 
@@ -56,9 +54,7 @@ export const testcaseFamily = selectorFamily<Testcase, string>({
       }
 
       set(testcaseInternalFamily(id), inputValue);
-      set(testcaseIdsAtom, (prev) =>
-        Array.from(new Set([...prev, inputValue.id]))
-      );
+      set(testcaseIdsAtom, (prev) => Array.from(new Set([...prev, inputValue.id])));
     };
   },
 });

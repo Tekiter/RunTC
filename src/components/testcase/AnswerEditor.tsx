@@ -24,10 +24,7 @@ const AnswerEditor: FC<AnswerEditorProps> = ({ value, onChange }) => {
   return (
     <StyledAnswerEditor>
       {value.type === "plainText" && (
-        <ReactCodeMirror
-          value={value.text}
-          onChange={(value) => handlePlainTextChange(value)}
-        />
+        <ReactCodeMirror value={value.text} onChange={(value) => handlePlainTextChange(value)} />
       )}
     </StyledAnswerEditor>
   );

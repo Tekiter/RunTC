@@ -8,7 +8,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder",
-    "lint": "eslint --ignore-path .gitignore --resolve-plugins-relative-to . --fix ."
+    "lint": "run-s lint:*",
+    "lint:eslint": "eslint --ignore-path .gitignore --resolve-plugins-relative-to . --fix .",
+    "lint:prettier": "prettier --ignore-path .gitignore --write ."
   },
   "engines": {
     "node": "^14.18.0 || >=16.0.0"
@@ -46,6 +48,8 @@
     "eslint-import-resolver-typescript": "^3.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.54.4",

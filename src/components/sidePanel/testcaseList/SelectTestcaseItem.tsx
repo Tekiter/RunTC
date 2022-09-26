@@ -4,10 +4,7 @@ import { FC } from "react";
 import { PuffLoader } from "react-spinners";
 import { useRecoilValue } from "recoil";
 
-import {
-  getResultColor,
-  getResultDescription,
-} from "@/components/common/renderResultUtil";
+import { getResultColor, getResultDescription } from "@/components/common/renderResultUtil";
 import { testcaseFamily } from "@/states/testcase";
 import { TestcaseResult, testcaseResultFamily } from "@/states/testcaseResult";
 import { color } from "@/styles/color";
@@ -18,26 +15,16 @@ interface SelectTestcaseItemProps {
   onClick(): void;
 }
 
-const SelectTestcaseItem: FC<SelectTestcaseItemProps> = ({
-  inputId,
-  selected = false,
-  onClick,
-}) => {
+const SelectTestcaseItem: FC<SelectTestcaseItemProps> = ({ inputId, selected = false, onClick }) => {
   const { name } = useRecoilValue(testcaseFamily(inputId));
   const status = useRecoilValue(testcaseResultFamily(inputId));
 
   return (
     <StyledItem selected={selected} onClick={onClick}>
-      {status === "running" ? (
-        <PuffLoader size="10px" color={getResultColor("running")} />
-      ) : (
-        <Dot status={status} />
-      )}
+      {status === "running" ? <PuffLoader size="10px" color={getResultColor("running")} /> : <Dot status={status} />}
 
       <Name selected={selected}>{name !== "" ? name : "이름 없음"}</Name>
-      <StatusMessage status={status}>
-        {getResultDescription(status) ?? status}
-      </StatusMessage>
+      <StatusMessage status={status}>{getResultDescription(status) ?? status}</StatusMessage>
     </StyledItem>
   );
 };

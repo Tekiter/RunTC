@@ -1,9 +1,4 @@
-import {
-  Button,
-  Editable,
-  EditableInput,
-  EditablePreview,
-} from "@chakra-ui/react";
+import { Button, Editable, EditableInput, EditablePreview } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { FC } from "react";
 import { useRecoilValue } from "recoil";
@@ -23,11 +18,7 @@ const TestcaseInfo: FC<TestcaseInfoProps> = ({ testcaseId }) => {
 
   return (
     <StyledTestcaseInfo>
-      <Name
-        value={testcase.name}
-        onChange={(name) => command.changeValue(testcaseId, { name })}
-        fontSize={20}
-      >
+      <Name value={testcase.name} onChange={(name) => command.changeValue(testcaseId, { name })} fontSize={20}>
         <EditablePreview />
         <EditableInput />
       </Name>

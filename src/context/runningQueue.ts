@@ -9,6 +9,4 @@ export type TestcaseTask = {
   stdin: string;
 };
 
-export const RunningQueueContext = createContext<TaskQueue<TestcaseTask>>(
-  new TimeoutTaskQueue()
-);
+export const RunningQueueContext = createContext<TaskQueue<TestcaseTask>>(new TimeoutTaskQueue());

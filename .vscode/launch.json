@@ -7,10 +7,7 @@
     {
       "name": "Debug App",
       "preLaunchTask": "start .debug.script.mjs",
-      "configurations": [
-        "Debug Main Process",
-        "Debug Renderer Process"
-      ],
+      "configurations": ["Debug Main Process", "Debug Renderer Process"],
       "presentation": {
         "hidden": false,
         "group": "",
@@ -28,11 +25,7 @@
       "windows": {
         "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
       },
-      "runtimeArgs": [
-        "--no-sandbox",
-        "--remote-debugging-port=9229",
-        "."
-      ],
+      "runtimeArgs": ["--no-sandbox", "--remote-debugging-port=9229", "."],
       "envFile": "${workspaceFolder}/.vscode/.debug.env"
     },
     {
@@ -41,6 +34,6 @@
       "request": "attach",
       "type": "pwa-chrome",
       "timeout": 60000
-    },
+    }
   ]
 }

@@ -3,16 +3,7 @@ import { selectorFamily } from "recoil";
 import { executeStatusFamily } from "./executeStatus";
 import { testcaseFamily } from "./testcase";
 
-export type TestcaseResult =
-  | "idle"
-  | "waiting"
-  | "running"
-  | "FIN"
-  | "AC"
-  | "WA"
-  | "TLE"
-  | "RE"
-  | "IE";
+export type TestcaseResult = "idle" | "waiting" | "running" | "FIN" | "AC" | "WA" | "TLE" | "RE" | "IE";
 
 export const testcaseResultFamily = selectorFamily<TestcaseResult, string>({
   key: "testcaseResultFamily",

@@ -26,12 +26,7 @@ const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
     {
       title: "입력",
       content: (
-        <InputEditor
-          value={testcase.input}
-          onChange={(input) =>
-            testcaseCommand.changeValue(testcaseId, { input })
-          }
-        />
+        <InputEditor value={testcase.input} onChange={(input) => testcaseCommand.changeValue(testcaseId, { input })} />
       ),
     },
     {
@@ -39,9 +34,7 @@ const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
       content: (
         <AnswerEditor
           value={testcase.answer}
-          onChange={(answer) =>
-            testcaseCommand.changeValue(testcaseId, { answer })
-          }
+          onChange={(answer) => testcaseCommand.changeValue(testcaseId, { answer })}
         />
       ),
     },

@@ -22,20 +22,12 @@ const Action: FC = () => {
           실행중...
         </MenuButton>
       ) : (
-        <MenuButton
-          icon={<MdPlayArrow />}
-          disabled={testcaseIds.length === 0 || isRunning}
-          onClick={runner.runAll}
-        >
+        <MenuButton icon={<MdPlayArrow />} disabled={testcaseIds.length === 0 || isRunning} onClick={runner.runAll}>
           모두 실행
         </MenuButton>
       )}
 
-      <MenuButton
-        icon={<MdStop />}
-        disabled={!isRunning}
-        onClick={runner.stopAll}
-      >
+      <MenuButton icon={<MdStop />} disabled={!isRunning} onClick={runner.stopAll}>
         실행 중단
       </MenuButton>
     </StyledAction>

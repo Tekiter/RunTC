@@ -19,5 +19,5 @@ export const color = createCSSVariables(
     statusTLE: "#921515",
     statusRE: "#143168",
   },
-  { suffix: "Color" }
+  { suffix: "Color" },
 );

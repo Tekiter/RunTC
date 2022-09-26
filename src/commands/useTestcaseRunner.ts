@@ -41,7 +41,7 @@ const useTestcaseRunner = () => {
           await run(id);
         }
       },
-    []
+    [],
   );
 
   const makeIdle = useRecoilCallback(({ set }) => (id: string) => {

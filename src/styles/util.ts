@@ -9,7 +9,7 @@ export interface CSSVariables<T extends Record<string, string>> {
 
 export function createCSSVariables<T extends Record<string, string>>(
   obj: T,
-  options: CSSVariableOptions = {}
+  options: CSSVariableOptions = {},
 ): CSSVariables<T> {
   return {
     getCSSInitializer() {
@@ -23,7 +23,7 @@ export function createCSSVariables<T extends Record<string, string>>(
         get(_, key) {
           return `var(--${String(key)}${options.suffix ?? ""})`;
         },
-      }
+      },
     ) as CSSVariables<T>["values"],
   };
 }

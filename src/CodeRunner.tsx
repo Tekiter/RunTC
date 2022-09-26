@@ -24,13 +24,7 @@ const CodeRunner: FC = () => {
             <SelectTestcaseMenu />
           </>
         }
-        content={
-          <>
-            {selectedTestcaseId ? (
-              <TestcasePanel testcaseId={selectedTestcaseId} />
-            ) : null}
-          </>
-        }
+        content={<>{selectedTestcaseId ? <TestcasePanel testcaseId={selectedTestcaseId} /> : null}</>}
       />
     </>
   );

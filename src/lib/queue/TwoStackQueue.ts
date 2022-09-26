@@ -25,9 +25,7 @@ export default class TwoStackQueue<T> implements Queue<T> {
   front(): T | null {
     this.arrange();
 
-    return this.outstk.length - 1 >= 0
-      ? this.outstk[this.outstk.length - 1]
-      : null;
+    return this.outstk.length - 1 >= 0 ? this.outstk[this.outstk.length - 1] : null;
   }
 
   clear() {

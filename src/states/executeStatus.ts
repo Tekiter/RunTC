@@ -2,13 +2,7 @@ import { atomFamily, selector } from "recoil";
 
 import { testcaseIdsAtom } from "./testcase";
 
-export type ExecuteStatus =
-  | StatusIdle
-  | StatusWaiting
-  | StatusRunning
-  | StatusExited
-  | StatusTimeout
-  | StatusError;
+export type ExecuteStatus = StatusIdle | StatusWaiting | StatusRunning | StatusExited | StatusTimeout | StatusError;
 
 type StatusIdle = { status: "idle" };
 type StatusWaiting = { status: "waiting" };

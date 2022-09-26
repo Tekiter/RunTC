@@ -22,7 +22,7 @@ const TestcaseWorker: FC = () => {
             filepath: executablePath,
             stdin,
             timeout: 2000,
-          })
+          }),
         );
 
         if (err) {
@@ -51,7 +51,7 @@ const TestcaseWorker: FC = () => {
             message: ret.stderr,
           });
         }
-      }
+      },
   );
 
   useEffect(() => {
