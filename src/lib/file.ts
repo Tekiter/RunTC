@@ -1,12 +1,39 @@
+import { dialog } from "@electron/remote";
+import { readFile, writeFile } from "fs/promises";
+
 export async function downloadTextFile(str: string, filename: string) {
-  const file = new Blob([str], { type: "text/plain" });
-  const a = document.createElement("a");
+  const { filePath } = await dialog.showSaveDialog({
+    title: "테스트케이스 파일 저장",
+    filters: [{ name: "RunTC 테스트케이스", extensions: ["runtc"] }],
+    properties: ["createDirectory"],
+    defaultPath: filename,
+  });
 
-  const url = URL.createObjectURL(file);
-  a.setAttribute("href", url);
-  a.setAttribute("download", filename);
+  if (!filePath) {
+    return null;
+  }
 
-  a.click();
+  await writeFile(filePath, Buffer.from(str, "utf-8"));
+}
 
-  document.body.removeChild(a);
+export async function openTextFile() {
+  const { filePaths } = await dialog.showOpenDialog({
+    title: "테스트케이스 파일 선택",
+    filters: [
+      { name: "RunTC 테스트케이스", extensions: ["runtc"] },
+      { name: "모든 파일", extensions: ["*"] },
+    ],
+    properties: ["openFile"],
+  });
+
+  if (filePaths.length !== 1) {
+    return null;
+  }
+
+  const [path] = filePaths;
+
+  const buffer = await readFile(path);
+  const data = buffer.toString("utf-8");
+
+  return data;
 }

@@ -1,3 +1,4 @@
+import { enable, initialize } from "@electron/remote/main";
 import { app, BrowserWindow, Menu, shell } from "electron";
 import { release } from "os";
 import { join } from "path";
@@ -14,6 +15,8 @@ if (!app.requestSingleInstanceLock()) {
   app.quit();
   process.exit(0);
 }
+
+initialize();
 
 process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
 
@@ -48,6 +51,8 @@ async function createWindow() {
     win.loadURL(url);
     // win.webContents.openDevTools()
   }
+
+  enable(win.webContents);
 
   // Test actively push message to the Electron-Renderer
   win.webContents.on("did-finish-load", () => {

@@ -4,7 +4,7 @@ import { BiExport, BiImport } from "react-icons/bi";
 import { MdAdd } from "react-icons/md";
 import { useRecoilValue } from "recoil";
 
-import useExport from "@/commands/useExport";
+import useImportExport from "@/commands/useImportExport";
 import useTestcaseCommand from "@/commands/useTestcaseCommand";
 import { selectedTestcaseIdAtom } from "@/states/selectedTestcase";
 import { testcaseIdsAtom } from "@/states/testcase";
@@ -16,7 +16,7 @@ const SelectTestcaseMenu: FC = () => {
   const testcaseCommand = useTestcaseCommand();
   const testcaseIds = useRecoilValue(testcaseIdsAtom);
   const selectedTestcaseKey = useRecoilValue(selectedTestcaseIdAtom);
-  const importExport = useExport();
+  const importExport = useImportExport();
 
   const changeTestcase = (id: string) => {
     testcaseCommand.select(id);
@@ -38,9 +38,9 @@ const SelectTestcaseMenu: FC = () => {
         </MenuButton>
         <Spacer />
         <MenuButton icon={<BiExport />} onClick={importExport.downloadPacked}>
-          내보내기
+          저장하기
         </MenuButton>
-        <MenuButton icon={<BiImport />} onClick={testcaseCommand.add}>
+        <MenuButton icon={<BiImport />} onClick={importExport.importPacked}>
           불러오기
         </MenuButton>
       </ActionButtonList>
