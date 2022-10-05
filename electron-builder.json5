@@ -17,8 +17,12 @@
         target: "nsis",
         arch: ["x64"],
       },
+      {
+        target: "portable",
+        arch: ["x64"],
+      },
     ],
-    artifactName: "${productName}-Windows-${version}-Setup.${ext}",
+    artifactName: "${productName}-${version}-Windows-${arch}-Installer.${ext}",
   },
   nsis: {
     oneClick: false,
@@ -26,12 +30,26 @@
     allowToChangeInstallationDirectory: true,
     deleteAppDataOnUninstall: false,
   },
+  portable: {
+    artifactName: "${productName}-${version}-Windows-${arch}-Portable.${ext}",
+  },
   mac: {
-    target: ["dmg"],
-    artifactName: "${productName}-Mac-${version}-Installer.${ext}",
+    target: [
+      {
+        target: "dmg",
+        arch: ["x64", "arm64"],
+      },
+    ],
+    artifactName: "${productName}-${version}-OSX-${arch}.${ext}",
   },
   linux: {
-    target: ["AppImage"],
-    artifactName: "${productName}-Linux-${version}.${ext}",
+    target: [
+      {
+        target: "AppImage",
+        arch: ["x64"],
+      },
+    ],
+    artifactName: "${productName}-${version}-Linux-${arch}.${ext}",
   },
+  publish: ["github"],
 }
