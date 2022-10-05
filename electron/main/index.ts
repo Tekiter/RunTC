@@ -3,8 +3,6 @@ import { app, BrowserWindow, Menu, shell } from "electron";
 import { release } from "os";
 import { join } from "path";
 
-import { installBridge } from "./bridge";
-
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 
@@ -97,7 +95,6 @@ async function createWindow() {
 
 app.whenReady().then(() => {
   createWindow();
-  installBridge();
 });
 
 app.on("window-all-closed", () => {
