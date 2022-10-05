@@ -1,5 +1,7 @@
 import { enable, initialize } from "@electron/remote/main";
-import { app, BrowserWindow, Menu, shell } from "electron";
+import { app, BrowserWindow, dialog, Menu, shell } from "electron";
+import log from "electron-log";
+import { autoUpdater } from "electron-updater";
 import { release } from "os";
 import { join } from "path";
 
@@ -13,6 +15,10 @@ if (!app.requestSingleInstanceLock()) {
   app.quit();
   process.exit(0);
 }
+
+process.on("unhandledRejection", (err) => {
+  log.error("UnhandledPromise:", err);
+});
 
 initialize();
 
@@ -95,6 +101,7 @@ async function createWindow() {
 
 app.whenReady().then(() => {
   createWindow();
+  setAutoUpdater();
 });
 
 app.on("window-all-closed", () => {
@@ -115,6 +122,37 @@ app.on("activate", () => {
   if (allWindows.length) {
     allWindows[0].focus();
   } else {
-    createWindow();
+    createWindow().catch((err) => {
+      dialog.showErrorBox("오류가 발생하여 실행에 실패했습니다", err);
+    });
   }
 });
+
+async function setAutoUpdater() {
+  log.transports.file.level = "debug";
+  autoUpdater.logger = log;
+
+  if (process.platform === "darwin") {
+    const checks = await autoUpdater.checkForUpdates();
+
+    if (!checks) {
+      return;
+    }
+
+    const { updateInfo } = checks;
+
+    const { response } = await dialog.showMessageBox(null, {
+      message: `업데이트가 존재합니다.\n버전: ${updateInfo.version}\n날짜: ${updateInfo.releaseDate}`,
+      buttons: ["취소", "다운로드 페이지로 이동"],
+      defaultId: 1,
+    });
+
+    if (response === 1) {
+      shell.openExternal("https://github.com/Tekiter/run-tc/releases");
+    }
+
+    return;
+  }
+
+  autoUpdater.checkForUpdatesAndNotify();
+}
