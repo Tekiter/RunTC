@@ -1,9 +1,8 @@
 {
   "name": "run-tc",
-  "productName": "RunTC",
-  "author": "Tekiter <tekiter8@gmail.com>",
   "version": "0.0.1",
   "license": "MIT",
+  "author": "Tekiter <tekiter8@gmail.com>",
   "main": "dist/electron/main/index.js",
   "scripts": {
     "dev": "vite",
@@ -12,52 +11,51 @@
     "lint:eslint": "eslint --ignore-path .gitignore --resolve-plugins-relative-to . --fix .",
     "lint:prettier": "prettier --ignore-path .gitignore --write ."
   },
-  "engines": {
-    "node": "^14.18.0 || >=16.0.0"
-  },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@chakra-ui/react": "^2.3.2",
     "@electron/remote": "^2.0.8",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@uiw/react-codemirror": "^4.12.1",
-    "allotment": "^1.17.0",
-    "await-to-js": "^3.0.0",
-    "electron-store": "^8.1.0",
-    "emotion-reset": "^3.0.1",
-    "framer-motion": "^7.3.2",
-    "local-echo": "wavesoft/local-echo",
-    "react-diff-viewer": "^3.1.1",
-    "react-icons": "^4.4.0",
-    "react-resize-detector": "^7.1.2",
-    "react-spinners": "^0.13.4",
-    "recoil": "^0.7.5",
-    "xterm": "^4.19.0",
-    "xterm-addon-fit": "^0.5.0",
-    "zod": "^3.19.1"
-  },
-  "devDependencies": {
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
+    "@uiw/react-codemirror": "^4.12.1",
     "@vitejs/plugin-react": "^2.0.1",
+    "allotment": "^1.17.0",
+    "await-to-js": "^3.0.0",
     "electron": "^20.0.2",
     "electron-builder": "^23.3.3",
+    "electron-store": "^8.1.0",
+    "emotion-reset": "^3.0.1",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-node": "^0.3.6",
     "eslint-import-resolver-typescript": "^3.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "framer-motion": "^7.3.2",
+    "local-echo": "wavesoft/local-echo",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
+    "react-diff-viewer": "^3.1.1",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
+    "react-resize-detector": "^7.1.2",
+    "react-spinners": "^0.13.4",
+    "recoil": "^0.7.5",
     "sass": "^1.54.4",
     "typescript": "^4.7.4",
     "vite": "^3.0.7",
-    "vite-plugin-electron": "^0.9.2"
+    "vite-plugin-electron": "^0.9.2",
+    "xterm": "^4.19.0",
+    "xterm-addon-fit": "^0.5.0",
+    "zod": "^3.19.1"
+  },
+  "engines": {
+    "node": "^14.18.0 || >=16.0.0"
   },
   "debug": {
     "env": {
@@ -65,5 +63,6 @@
       "VITE_DEV_SERVER_PORT": 7777,
       "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777"
     }
-  }
+  },
+  "productName": "RunTC"
 }
