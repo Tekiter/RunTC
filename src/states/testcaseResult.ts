@@ -39,6 +39,10 @@ export const testcaseResultFamily = selectorFamily<TestcaseResult, string>({
         }
 
         if (testcase.answer.type === "plainText") {
+          if (testcase.answer.text === "") {
+            return "FIN";
+          }
+
           if (compareResult(executed.stdout, testcase.answer.text)) {
             return "AC";
           }
@@ -48,10 +52,14 @@ export const testcaseResultFamily = selectorFamily<TestcaseResult, string>({
         return "FIN";
       }
 
-      throw new Error("Invalid Status");
+      isAllMatched(executed);
     },
 });
 
 function compareResult(a: string, b: string) {
   return a.trim() === b.trim();
+}
+
+function isAllMatched(_obj: never): never {
+  throw new Error(`Invalid Execute Status`);
 }
