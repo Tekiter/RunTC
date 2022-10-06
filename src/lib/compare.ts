@@ -1,7 +1,7 @@
 const compare = {
   ignoreTailingSpaces(a: string, b: string) {
-    const aLines = splitByLines(a);
-    const bLines = splitByLines(b);
+    const aLines = splitByLines(a.trimEnd());
+    const bLines = splitByLines(b.trimEnd());
 
     if (aLines.length !== bLines.length) {
       return false;
