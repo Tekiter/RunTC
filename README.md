@@ -9,6 +9,13 @@
     <b><a href="https://github.com/Tekiter/RunTC/releases">다운로드</a></b>
 </div>
 
+## ✨ 기능
+
+- 테스트 케이스 한번에 실행 후 채점
+- 테스트 케이스 파일로 저장
+- 자동 업데이트 (설치 시)
+- 크로스 플랫폼 (Windows, OSX, Linux)
+
 ## ⚙️ 직접 빌드하기
 
 ```bash
