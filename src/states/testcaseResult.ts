@@ -1,5 +1,7 @@
 import { selectorFamily } from "recoil";
 
+import compare from "@/lib/compare";
+
 import { executeStatusFamily } from "./executeStatus";
 import { testcaseFamily } from "./testcase";
 
@@ -57,7 +59,7 @@ export const testcaseResultFamily = selectorFamily<TestcaseResult, string>({
 });
 
 function compareResult(a: string, b: string) {
-  return a.trim() === b.trim();
+  return compare.ignoreTailingSpaces(a, b);
 }
 
 function isAllMatched(_obj: never): never {
