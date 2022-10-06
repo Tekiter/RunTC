@@ -6,8 +6,10 @@ import { z } from "zod";
 import { downloadTextFile, openTextFile } from "@/lib/file";
 import { testcaseFamily, testcaseIdsAtom } from "@/states/testcase";
 
+const TYPE_STRING = "RunTCTestcase";
+
 const testcaseFileValidator = z.object({
-  type: z.literal("RunTCTestcase"),
+  type: z.literal(TYPE_STRING),
   version: z.literal(1),
   testcases: z.array(
     z.object({
@@ -69,7 +71,17 @@ export const useImportExport = () => {
       return;
     }
 
-    const json = jsonParseSafe(data ?? "");
+    const json = jsonParseSafe(data ?? "") as unknown;
+
+    if (!isSignitureValid(json)) {
+      showInvalidMessage("올바르지 않은 테스트케이스 파일입니다.");
+      return;
+    }
+
+    if (getVersion(json) !== 1) {
+      showInvalidMessage("해당 테스트케이스 파일을 열려면 업데이트가 필요합니다.");
+    }
+
     const parsed = testcaseFileValidator.safeParse(json);
 
     if (!parsed.success) {
@@ -110,4 +122,18 @@ function jsonParseSafe(data: string) {
   } catch {
     return null;
   }
+}
+
+function isSignitureValid(data: unknown) {
+  return (data as { type: string }).type === TYPE_STRING;
+}
+
+function getVersion(data: unknown) {
+  const { version } = data as { version: number };
+
+  if (isNaN(version) || version <= 0) {
+    return null;
+  }
+
+  return version;
 }
