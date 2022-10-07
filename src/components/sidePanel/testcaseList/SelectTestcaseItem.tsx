@@ -36,10 +36,13 @@ const StyledItem = styled.div<{ selected: boolean }>`
   grid-template-columns: 10px minmax(16px, 1fr) max-content;
   align-items: center;
 
+  height: 40px;
+  line-height: 40px;
+
   cursor: pointer;
   border-radius: 6px;
   margin: 0 10px;
-  padding: 10px 15px;
+  padding: 0 15px;
 
   ${(props) =>
     props.selected &&
