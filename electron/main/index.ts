@@ -5,6 +5,8 @@ import { autoUpdater } from "electron-updater";
 import { release } from "os";
 import { join } from "path";
 
+import { version } from "../../package.json";
+
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 
@@ -39,7 +41,7 @@ const indexHtml = join(ROOT_PATH.dist, "index.html");
 
 async function createWindow() {
   win = new BrowserWindow({
-    title: "RunTC",
+    title: "RunTC - " + version,
     icon: join(ROOT_PATH.public, "favicon.svg"),
     autoHideMenuBar: true,
     webPreferences: {
