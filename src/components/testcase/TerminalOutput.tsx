@@ -26,6 +26,8 @@ const TerminalOutput: FC<OutputProps> = ({ content }) => {
 
     const term = new Terminal({
       fontFamily: "consolas",
+      convertEol: true,
+      disableStdin: true,
     });
     const fitAddon = new FitAddon();
 

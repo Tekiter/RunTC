@@ -27,6 +27,7 @@
     "@vitejs/plugin-react": "^2.0.1",
     "allotment": "^1.17.0",
     "await-to-js": "^3.0.0",
+    "compare-versions": "^5.0.1",
     "electron": "^20.0.2",
     "electron-builder": "^23.3.3",
     "electron-log": "^4.4.8",
