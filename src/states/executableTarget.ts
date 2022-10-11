@@ -13,6 +13,8 @@ export const executableTargetFilenameSelector = selector<string | null>({
       return null;
     }
 
-    return path.split("\\").at(-1) ?? null;
+    const matches = path.match(/.+[\\/\\]([^\\/\\]+)/);
+
+    return matches?.[1] ?? null;
   },
 });
