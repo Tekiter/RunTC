@@ -5,6 +5,7 @@ import { FC, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 import useTestcaseCommand from "@/commands/useTestcaseCommand";
+import useTestcaseRunner from "@/commands/useTestcaseRunner";
 import { testcaseFamily, TestcaseID } from "@/states/testcase";
 
 import AnswerEditor from "./AnswerEditor";
@@ -19,6 +20,7 @@ interface TestcasePanelProps {
 const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
   const testcaseCommand = useTestcaseCommand();
   const testcase = useRecoilValue(testcaseFamily(testcaseId));
+  const runner = useTestcaseRunner();
 
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 
@@ -26,7 +28,11 @@ const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
     {
       title: "입력",
       content: (
-        <InputEditor value={testcase.input} onChange={(input) => testcaseCommand.changeValue(testcaseId, { input })} />
+        <InputEditor
+          value={testcase.input}
+          onChange={(input) => testcaseCommand.changeValue(testcaseId, { input })}
+          onKeyDown={() => runner.makeIdle(testcaseId)}
+        />
       ),
     },
     {
