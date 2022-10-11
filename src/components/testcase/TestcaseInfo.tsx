@@ -1,4 +1,5 @@
 import { Button, Editable, EditableInput, EditablePreview, useEditableControls } from "@chakra-ui/react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FC, ReactNode } from "react";
 import { MdDelete, MdEdit, MdPlayArrow } from "react-icons/md";
@@ -7,6 +8,9 @@ import { useRecoilValue } from "recoil";
 import useTestcaseCommand from "@/commands/useTestcaseCommand";
 import useTestcaseRunner from "@/commands/useTestcaseRunner";
 import { testcaseFamily } from "@/states/testcase";
+import { TestcaseResult, testcaseResultFamily } from "@/states/testcaseResult";
+
+import { getResultColor, getResultDescription } from "../common/renderResultUtil";
 
 interface TestcaseInfoProps {
   testcaseId: string;
@@ -16,6 +20,7 @@ const TestcaseInfo: FC<TestcaseInfoProps> = ({ testcaseId }) => {
   const command = useTestcaseCommand();
   const runner = useTestcaseRunner();
   const testcase = useRecoilValue(testcaseFamily(testcaseId));
+  const result = useRecoilValue(testcaseResultFamily(testcaseId));
 
   return (
     <StyledTestcaseInfo>
@@ -38,16 +43,25 @@ const TestcaseInfo: FC<TestcaseInfoProps> = ({ testcaseId }) => {
         </Name>
       </NameBox>
       <ActionBox>
-        <Button onClick={() => runner.run(testcaseId)} variant="ghost" size="sm" leftIcon={<MdPlayArrow />}>
-          실행
-        </Button>
+        <ActionBoxLeft>
+          <Button
+            onClick={() => runner.run(testcaseId)}
+            variant="outline"
+            size="sm"
+            leftIcon={<MdPlayArrow />}
+            colorScheme="teal"
+            isLoading={result === "running"}>
+            실행
+          </Button>
+          <Result status={result}>{getResultDescription(result)}</Result>
+        </ActionBoxLeft>
         <Spacer />
         <Button
           onClick={() => command.remove(testcaseId)}
-          variant="ghost"
+          variant="outline"
           size="sm"
           leftIcon={<MdDelete />}
-          color="red.700">
+          colorScheme="red">
           삭제
         </Button>
       </ActionBox>
@@ -66,7 +80,21 @@ const NameBox = styled.div`
 
 const ActionBox = styled.div`
   display: flex;
-  margin: 0 5px;
+  margin: 0 8px;
+`;
+
+const ActionBoxLeft = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Result = styled.div<{ status: TestcaseResult }>`
+  margin-left: 0.8rem;
+  font-size: 0.85rem;
+
+  ${(props) => css`
+    color: ${getResultColor(props.status)};
+  `}
 `;
 
 const Spacer = styled.div`
