@@ -44,8 +44,12 @@ const useTestcaseRunner = () => {
     [],
   );
 
-  const makeIdle = useRecoilCallback(({ set }) => (id: string) => {
+  const makeWaiting = useRecoilCallback(({ set }) => (id: string) => {
     set(executeStatusFamily(id), { status: "waiting" });
+  });
+
+  const makeIdle = useRecoilCallback(({ set }) => (id: string) => {
+    set(executeStatusFamily(id), { status: "idle" });
   });
 
   const stopAll = useRecoilCallback(({ snapshot, set }) => async () => {
@@ -65,6 +69,7 @@ const useTestcaseRunner = () => {
   return {
     runAll,
     run,
+    makeWaiting,
     makeIdle,
     stopAll,
   };

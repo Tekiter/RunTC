@@ -6,10 +6,13 @@ import { TestcaseInput } from "@/states/testcase";
 
 interface InputEditorProps {
   value: TestcaseInput;
+  editable?: boolean;
   onChange(newVal: TestcaseInput): void;
+  onKeyDown?(): void;
 }
 
-const InputEditor: FC<InputEditorProps> = ({ value, onChange }) => {
+const InputEditor: FC<InputEditorProps> = ({ value, editable, onChange, onKeyDown }) => {
+  console.log("Rerender");
   const updateData = (data: TestcaseInput) => {
     onChange(data);
   };
@@ -23,7 +26,12 @@ const InputEditor: FC<InputEditorProps> = ({ value, onChange }) => {
 
   return (
     <StyledInputEditor>
-      <ReactCodeMirror value={value.text} onChange={(value) => handlePlainTextChange(value)} />
+      <ReactCodeMirror
+        value={value.text}
+        onChange={(value) => handlePlainTextChange(value)}
+        onKeyDown={onKeyDown}
+        editable={editable}
+      />
     </StyledInputEditor>
   );
 };
