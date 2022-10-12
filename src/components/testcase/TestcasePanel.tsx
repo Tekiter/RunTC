@@ -1,7 +1,7 @@
 import { Tab, TabList, Tabs } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 import useTestcaseCommand from "@/commands/useTestcaseCommand";
@@ -19,36 +19,39 @@ interface TestcasePanelProps {
 
 const TestcasePanel: FC<TestcasePanelProps> = ({ testcaseId }) => {
   const testcaseCommand = useTestcaseCommand();
-  const testcase = useRecoilValue(testcaseFamily(testcaseId));
   const runner = useTestcaseRunner();
+  const testcase = useRecoilValue(testcaseFamily(testcaseId));
 
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 
-  const tabs = [
-    {
-      title: "입력",
-      content: (
-        <InputEditor
-          value={testcase.input}
-          onChange={(input) => testcaseCommand.changeValue(testcaseId, { input })}
-          onKeyDown={() => runner.makeIdle(testcaseId)}
-        />
-      ),
-    },
-    {
-      title: "정답",
-      content: (
-        <AnswerEditor
-          value={testcase.answer}
-          onChange={(answer) => testcaseCommand.changeValue(testcaseId, { answer })}
-        />
-      ),
-    },
-    {
-      title: "출력결과",
-      content: <Result testcaseId={testcaseId} />,
-    },
-  ];
+  const tabs = useMemo(
+    () => [
+      {
+        title: "입력",
+        content: (
+          <InputEditor
+            value={testcase.input}
+            onChange={(input) => testcaseCommand.changeValue(testcaseId, { input })}
+            onKeyDown={() => runner.makeIdle(testcaseId)}
+          />
+        ),
+      },
+      {
+        title: "정답",
+        content: (
+          <AnswerEditor
+            value={testcase.answer}
+            onChange={(answer) => testcaseCommand.changeValue(testcaseId, { answer })}
+          />
+        ),
+      },
+      {
+        title: "출력결과",
+        content: <Result testcaseId={testcaseId} />,
+      },
+    ],
+    [testcaseId, testcase],
+  );
 
   return (
     <StyledTestcasePanel>

@@ -12,6 +12,7 @@ interface InputEditorProps {
 }
 
 const InputEditor: FC<InputEditorProps> = ({ value, editable, onChange, onKeyDown }) => {
+  console.log("Rerender");
   const updateData = (data: TestcaseInput) => {
     onChange(data);
   };
